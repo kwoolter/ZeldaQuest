@@ -16,6 +16,7 @@ class Objects:
     DOOR = "door"
     DOOR_OPEN = "open_door"
     KEY = "key"
+    TRAP = "trap"
 
 class RPGObject(object):
 
@@ -257,10 +258,12 @@ class Game:
                 self.current_player.treasure += 1
                 self.current_floor.remove_object(object)
                 print("You found some treasure!")
+
             if object.name == Objects.KEY:
                 self.current_player.keys += 1
                 self.current_floor.remove_object(object)
                 print("You found a key!")
+
             elif object.name == Objects.DOOR:
                 print("You found a door!")
                 if self.current_player.keys > 0:

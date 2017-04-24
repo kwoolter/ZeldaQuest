@@ -66,7 +66,8 @@ class ImageManager:
                                     model.Objects.TREASURE : "treasure.png",
                                     model.Objects.DOOR: "door.png",
                                     model.Objects.DOOR_OPEN: "door_open.png",
-                                    model.Objects.KEY: "key.png"
+                                    model.Objects.KEY: "key.png",
+                                    model.Objects.TRAP: (),
 
         })
 
