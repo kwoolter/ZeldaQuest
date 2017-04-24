@@ -256,6 +256,15 @@ class Game:
         self.tick_count += 1
         self.check_collision()
 
+    def create_player(self, new_player_name : str):
+
+        new_object = FloorObjectLoader.get_object_copy_by_name(Objects.PLAYER)
+
+        new_player = Player(name=new_player_name, rect=(0,0,new_object.rect.width, new_object.rect.height), height=32)
+
+        return new_player
+
+
     def add_player(self, new_player : Player):
         self.current_player = new_player
         self.current_floor.add_player(new_player)

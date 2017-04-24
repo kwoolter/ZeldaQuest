@@ -29,12 +29,12 @@ class Controller:
         self._mode = Controller.PLAYING
         self._test_mode = False
 
-        self.game = model.Game("Adventure World")
+        self.game = model.Game("Zelda Quest")
         self.view = view.MainFrame(width=20*32, height=730)
 
-
-        new_player = model.Player(name="player", rect=(50, 50, 32, 32),height=32)
         self.game.initialise()
+        new_player = self.game.create_player("player1")
+        new_player.set_pos(50,50)
         self.game.add_player(new_player)
         self.view.initialise(self.game)
 

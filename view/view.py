@@ -237,7 +237,7 @@ class FloorView(View):
             if view_object.is_visible is True:
                 if isinstance(view_object, model.Player):
 
-                    image = View.image_manager.get_skin_image(view_object.name,
+                    image = View.image_manager.get_skin_image(model.Objects.PLAYER,
                                                               tick=self.tick_count,
                                                               width=view_object.rect.width,
                                                               height = view_object.height)
