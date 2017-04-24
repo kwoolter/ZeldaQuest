@@ -60,7 +60,6 @@ class RPGObject(object):
 
     def is_colliding(self, other_object):
         return self != other_object and\
-               self.is_solid and\
                self.rect.colliderect(other_object.rect)
 
     def is_touching(self, other_object):
@@ -96,6 +95,7 @@ class Player(RPGObject):
 
         self.treasure = 0
         self.keys = 0
+        self.HP = 10
 
 class Monster(RPGObject):
 
@@ -185,16 +185,19 @@ class Floor:
 
             if object.is_colliding(selected_player):
                 logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
-                selected_player.back()
-                break
+                if object.is_solid is True:
+                    selected_player.back()
+                    break
+
 
         selected_player.move(0,dy)
 
         for object in self.objects:
             if object.is_colliding(selected_player):
                 logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
-                selected_player.back()
-                break
+                if object.is_solid is True:
+                    selected_player.back()
+                    break
 
 class Game:
 
@@ -250,7 +253,8 @@ class Game:
         return self.floor_factory.floors[self.current_floor_id]
 
     def tick(self):
-        pass
+        self.tick_count += 1
+        self.check_collision()
 
     def add_player(self, new_player : Player):
         self.current_player = new_player
@@ -260,11 +264,10 @@ class Game:
 
         self.current_floor.move_player(self.current_player.name, dx,dy)
 
-        colliding_objects = self.current_floor.touching_objects(self.current_player)
+        colliding_objects = self.current_floor.colliding_objects(self.current_player)
 
         for object in colliding_objects:
             print("{0} is colliding with {1}".format(self.current_player.name, object.name))
-
 
         touching_objects = self.current_floor.touching_objects(self.current_player)
 
@@ -289,6 +292,16 @@ class Game:
                     print("You opened the door with a key!")
                 else:
                     print("The door is locked!")
+
+    def check_collision(self):
+
+        colliding_objects = self.current_floor.colliding_objects(self.current_player)
+
+        for object in colliding_objects:
+            #print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+            if object.name == Objects.TRAP and self.tick_count % Game.DOT_DAMAGE_RATE == 0:
+                self.current_player.HP -= 1
+                print("You stepped on a trap!")
 
 
 
