@@ -13,6 +13,9 @@ class Objects:
     WALL = "wall"
     PLAYER = "player"
     TREASURE = "treasure"
+    DOOR = "door"
+    DOOR_OPEN = "open_door"
+    KEY = "key"
 
 class RPGObject(object):
 
@@ -78,6 +81,8 @@ class RPGObject(object):
         self._old_rect = self._rect.copy()
         self.rect.move_ip(x, y)
 
+    def get_pos(self):
+        return self._rect.x, self._rect.y
 
 class Player(RPGObject):
 
@@ -86,6 +91,9 @@ class Player(RPGObject):
                  height : int = 40):
 
         super(Player, self).__init__(name=name, rect=rect, height=height)
+
+        self.treasure = 0
+        self.keys = 0
 
 class Monster(RPGObject):
 
@@ -112,6 +120,21 @@ class Floor:
         self.objects.append(new_object)
         logging.info("Added {0} at location ({1},{2})".format(new_object.name,new_object.rect.x,new_object.rect.y))
 
+    def remove_object(self, object : RPGObject):
+        self.objects.remove(object)
+
+    def swap_object(self, object : RPGObject, new_object_type : str):
+
+        x,y = object.get_pos()
+
+        swap_object = FloorObjectLoader.get_object_copy_by_name(new_object_type)
+        swap_object.set_pos(x,y)
+        self.objects.remove(object)
+        self.objects.append(swap_object)
+
+
+
+
     def add_monster(self, new_object : Monster):
         self.monsters.append(new_object)
 
@@ -127,16 +150,15 @@ class Floor:
 
         return collide
 
-    def is_object_touch(self, target : RPGObject):
+    def is_object_touching(self, target : RPGObject):
 
-        touch = False
+        touching = []
 
         for object in self.objects:
             if object.is_touchable(target):
-                touch = True
-                break
+                touching.append(object)
 
-        return touch
+        return touching
 
     def move_player(self, name : str, dx : int = 0, dy : int = 0):
 
@@ -226,6 +248,29 @@ class Game:
 
         self.current_floor.move_player(self.current_player.name, dx,dy)
 
+        touching_objects = self.current_floor.is_object_touching(self.current_player)
+
+        for object in touching_objects:
+            print("touching {0}".format(object.name))
+
+            if object.name == Objects.TREASURE:
+                self.current_player.treasure += 1
+                self.current_floor.remove_object(object)
+                print("You found some treasure!")
+            if object.name == Objects.KEY:
+                self.current_player.keys += 1
+                self.current_floor.remove_object(object)
+                print("You found a key!")
+            elif object.name == Objects.DOOR:
+                print("You found a door!")
+                if self.current_player.keys > 0:
+                    self.current_player.keys -= 1
+                    self.current_floor.swap_object(object, Objects.DOOR_OPEN)
+                    print("You opened the door with a key!")
+                else:
+                    print("The door is locked!")
+
+
 
 
 class FloorBuilder():
@@ -297,7 +342,7 @@ class FloorLayoutLoader():
                 x=0
                 for object_code in floor_layout:
                     if object_code != FloorLayoutLoader.EMPTY_OBJECT_CODE:
-                        new_floor_object = copy.deepcopy(FloorObjectLoader.floor_objects[object_code])
+                        new_floor_object = FloorObjectLoader.get_object_copy_by_code(object_code)
                         new_floor_object.rect.x = x
                         new_floor_object.rect.y = y
                         floor.add_object(new_floor_object)
@@ -310,6 +355,7 @@ class FloorObjectLoader():
 
 
     floor_objects = {}
+    map_object_name_to_code = {}
 
     BOOL_MAP = { "TRUE" : True, "FALSE" : False}
 
@@ -339,13 +385,37 @@ class FloorObjectLoader():
                                         height = int(row.get("height")), \
                                         solid = FloorObjectLoader.BOOL_MAP[row.get("solid").upper()], \
                                         visible = FloorObjectLoader.BOOL_MAP[row.get("visible").upper()], \
-                                        interactable=bool(row.get("interactable")) \
+                                        interactable=FloorObjectLoader.BOOL_MAP[row.get("interactable").upper()] \
                                         )
 
 
-
+                # Store the floor object in the code cache
                 FloorObjectLoader.floor_objects[object_code] = new_object
 
+                # Store mapping of object name to code
+                FloorObjectLoader.map_object_name_to_code[new_object.name] = object_code
+
                 logging.info("{0}.load(): Loaded Floor Object {1}".format(__class__, new_object.name))
+
+    @staticmethod
+    def get_object_copy_by_code(object_code : str):
+
+        if object_code not in FloorObjectLoader.floor_objects.keys():
+            raise Exception("Can't find object by code '{0}'".format(object_code))
+
+        return copy.deepcopy(FloorObjectLoader.floor_objects[object_code])
+
+    @staticmethod
+    def get_object_copy_by_name(object_name: str):
+
+        if object_name not in FloorObjectLoader.map_object_name_to_code.keys():
+            raise Exception("Can't find object by name '{0}'".format(object_name))
+
+        object_code = FloorObjectLoader.map_object_name_to_code[object_name]
+
+        if object_code not in FloorObjectLoader.floor_objects.keys():
+            raise Exception("Can't find object by code '{0}'".format(object_name))
+
+        return FloorObjectLoader.get_object_copy_by_code(object_code)
 
 

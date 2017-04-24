@@ -33,7 +33,7 @@ class Controller:
         self.view = view.MainFrame(width=20*32, height=730)
 
 
-        new_player = model.Player(name="player", rect=(80, 100, 48, 32),height=64)
+        new_player = model.Player(name="player", rect=(80, 100, 48, 16),height=64)
         self.game.initialise()
         self.game.add_player(new_player)
         self.view.initialise(self.game)

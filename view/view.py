@@ -4,6 +4,7 @@ import os
 import logging
 
 
+
 class Colours:
     # set up the colours
     BLACK = (0, 0, 0)
@@ -40,8 +41,8 @@ class ImageManager:
             filename = ImageManager.RESOURCES_DIR + image_file_name
             try:
                 logging.info("Loading image {0}...".format(filename))
-                image = pygame.image.load(filename)
-                image = pygame.transform.scale(image, (width, height))
+                original_image = pygame.image.load(filename)
+                image = pygame.transform.scale(original_image, (width, height))
                 ImageManager.image_cache[image_file_name] = image
                 logging.info("Image {0} loaded and cached.".format(filename))
             except Exception as err:
@@ -62,7 +63,10 @@ class ImageManager:
                                                        "fallen_knight2.png","fallen_knight1.png","fallen_knight4.png", \
                                                        "fallen_knight5.png","fallen_knight4.png"
                                                        ),
-                                    model.Objects.TREASURE : "treasure_chest.png"
+                                    model.Objects.TREASURE : "treasure.png",
+                                    model.Objects.DOOR: "door.png",
+                                    model.Objects.DOOR_OPEN: "door_open.png",
+                                    model.Objects.KEY: "key.png"
 
         })
 
