@@ -59,15 +59,17 @@ class ImageManager:
                                     model.Objects.WALL: "forest_wall.png",
                                     model.Objects.CRATE: "forest_crate.png",
                                     model.Objects.BUSH: "forest_bush.png",
-                                    model.Objects.PLAYER: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
+                                    model.Objects.BOSS: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
                                                        "fallen_knight2.png","fallen_knight1.png","fallen_knight4.png", \
                                                        "fallen_knight5.png","fallen_knight4.png"
                                                        ),
+                                    model.Objects.PLAYER: ("player1.png","player.png","player2.png","player.png"),
                                     model.Objects.TREASURE : "treasure.png",
                                     model.Objects.DOOR: "door.png",
                                     model.Objects.DOOR_OPEN: "door_open.png",
                                     model.Objects.KEY: "key.png",
-                                    model.Objects.TRAP: (),
+                                    model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
+                                                        "spike2.png","spike1.png","spike0.png"),
 
         })
 

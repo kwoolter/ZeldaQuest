@@ -21,7 +21,7 @@ def main():
     for player1 in new_floor.players.values():
 
         player_collision = new_floor.is_player_collide(player1)
-        touched = new_floor.is_object_touching(player1)
+        touched = new_floor.touching_objects(player1)
 
         print("Player {0}: collision={1}, touching={2}".format(player1.name, player_collision, touched))
 
@@ -31,7 +31,7 @@ def main():
     selected_player.move(50,50)
     for player1 in new_floor.players.values():
         player_collision = new_floor.is_player_collide(player1)
-        touched = new_floor.is_object_touching(player1)
+        touched = new_floor.touching_objects(player1)
 
         print("Player {0}: collision={1}, touching={2}".format(player1.name, player_collision, touched))
 

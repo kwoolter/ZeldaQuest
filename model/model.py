@@ -17,6 +17,7 @@ class Objects:
     DOOR_OPEN = "open_door"
     KEY = "key"
     TRAP = "trap"
+    BOSS = "boss"
 
 class RPGObject(object):
 
@@ -57,12 +58,12 @@ class RPGObject(object):
         logging.info("Moving Player {0} back from {1} to {2}".format(self.name, self._rect, self._old_rect))
         self._rect = self._old_rect.copy()
 
-    def is_collision(self, other_object):
+    def is_colliding(self, other_object):
         return self != other_object and\
                self.is_solid and\
                self.rect.colliderect(other_object.rect)
 
-    def is_touchable(self, other_object):
+    def is_touching(self, other_object):
 
         touch_field = self.rect.inflate(RPGObject.TOUCH_FIELD_X, RPGObject.TOUCH_FIELD_Y)
 
@@ -145,18 +146,28 @@ class Floor:
         collide = False
 
         for player in self.players.values():
-            if target.is_collision(player):
+            if target.is_colliding(player):
                 collide = True
                 break
 
         return collide
 
-    def is_object_touching(self, target : RPGObject):
+    def colliding_objects(self, target : RPGObject):
+
+        colliding = []
+
+        for object in self.objects:
+            if object.is_colliding(target):
+                colliding.append(object)
+
+        return colliding
+
+    def touching_objects(self, target : RPGObject):
 
         touching = []
 
         for object in self.objects:
-            if object.is_touchable(target):
+            if object.is_touching(target):
                 touching.append(object)
 
         return touching
@@ -172,7 +183,7 @@ class Floor:
 
         for object in self.objects:
 
-            if object.is_collision(selected_player):
+            if object.is_colliding(selected_player):
                 logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
                 selected_player.back()
                 break
@@ -180,7 +191,7 @@ class Floor:
         selected_player.move(0,dy)
 
         for object in self.objects:
-            if object.is_collision(selected_player):
+            if object.is_colliding(selected_player):
                 logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
                 selected_player.back()
                 break
@@ -249,10 +260,16 @@ class Game:
 
         self.current_floor.move_player(self.current_player.name, dx,dy)
 
-        touching_objects = self.current_floor.is_object_touching(self.current_player)
+        colliding_objects = self.current_floor.touching_objects(self.current_player)
+
+        for object in colliding_objects:
+            print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+
+
+        touching_objects = self.current_floor.touching_objects(self.current_player)
 
         for object in touching_objects:
-            print("touching {0}".format(object.name))
+            print("{0} is touching {1}".format(self.current_player.name, object.name))
 
             if object.name == Objects.TREASURE:
                 self.current_player.treasure += 1

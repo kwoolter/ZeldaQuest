@@ -4,9 +4,9 @@ B,bush,10,10,10,True,True,False
 _,empty,32,32,32,False,False,False
 #,wall,32,32,32,True,True,False
 T,tree,32,16,64,True,True,False
-P,player,32,16,64,True,True,False
+P,player,32,16,32,True,True,False
 $,treasure,32,32,32,True,True,True
 D,door,32,32,32,True,True,True
 d,open_door,32,32,32,False,True,False
 K,key,32,32,32,True,True,True
-^,trap,32,32,32,True,True,False
+^,trap,32,32,32,False,True,False
