@@ -67,7 +67,8 @@ class RPGObject(object):
 
     def is_colliding(self, other_object):
         return self != other_object and\
-               self.rect.colliderect(other_object.rect)
+                self.layer == other_object.layer and\
+                self.rect.colliderect(other_object.rect)
 
     def is_touching(self, other_object):
 
@@ -76,6 +77,7 @@ class RPGObject(object):
         logging.info("Checking {0} touching {1}".format(touch_field, other_object.rect))
 
         return self != other_object and \
+               self.layer == other_object.layer and \
                self.is_visible and\
                self.is_interactable and\
                touch_field.colliderect(other_object.rect)
