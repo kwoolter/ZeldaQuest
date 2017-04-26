@@ -8,6 +8,7 @@ class Objects:
 
     PLAYER = "player"
     TREE = "tree"
+    TILE1 = "tile1"
     CRATE = "crate"
     BUSH = "bush"
     WALL = "wall"
@@ -18,6 +19,10 @@ class Objects:
     KEY = "key"
     TRAP = "trap"
     BOSS = "boss"
+    NORTH = "north"
+    SOUTH = "south"
+    EAST = "east"
+    WEST = "west"
 
 class RPGObject(object):
 
@@ -370,6 +375,7 @@ class FloorLayoutLoader():
             header = reader.fieldnames
 
             current_layout_name = None
+            current_floor_layer = None
 
             # For each row in the file....
             for row in reader:
@@ -381,9 +387,16 @@ class FloorLayoutLoader():
                     current_layout_name = floor_layout_name
                     y=0
 
+
+
                 floor = FloorLayoutLoader.floor_layouts[floor_layout_name]
 
                 floor_layer = int(row.get("Layer"))
+                if floor_layer != current_floor_layer:
+                    current_floor_layer = floor_layer
+                    y=0
+
+
                 floor_layout = row.get("Layout")
                 x=0
                 for object_code in floor_layout:

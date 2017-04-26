@@ -68,6 +68,11 @@ class ImageManager:
                                     model.Objects.DOOR: "door.png",
                                     model.Objects.DOOR_OPEN: "door_open.png",
                                     model.Objects.KEY: "key.png",
+                                    model.Objects.TILE1: "tile0.png",
+                                    model.Objects.NORTH: "north2.png",
+                                    model.Objects.SOUTH: "south2.png",
+                                    model.Objects.EAST: "east.png",
+                                    model.Objects.WEST: "west.png",
                                     model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
                                                         "spike2.png","spike1.png","spike0.png"),
 
@@ -189,6 +194,7 @@ class MainFrame(View):
         x=0
         y=pane_rect.y + MainFrame.TITLE_HEIGHT
 
+        self.floor_view.initialise(self.game.current_floor)
         self.floor_view.draw()
         self.surface.blit(self.floor_view.surface, (x, y))
 
@@ -231,7 +237,7 @@ class FloorView(View):
 
         view_objects = list(self.floor.players.values()) + self.floor.objects + self.floor.monsters
 
-        view_objects = sorted(view_objects, key=lambda obj : obj.rect.y, reverse=False)
+        view_objects = sorted(view_objects, key=lambda obj : obj.layer * 1000 + obj.rect.y, reverse=False)
 
         for view_object in view_objects:
             if view_object.is_visible is True:
