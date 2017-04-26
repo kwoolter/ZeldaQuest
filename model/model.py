@@ -89,7 +89,8 @@ class RPGObject(object):
 
     def set_pos(self, x : int, y : int):
         self._old_rect = self._rect.copy()
-        self.rect.move_ip(x, y)
+        self.rect.x = x
+        self.rect.y = y
 
     def get_pos(self):
         return self._rect.x, self._rect.y
@@ -119,16 +120,28 @@ class Floor:
 
     def __init__(self, name : str, rect : pygame.Rect):
         self.name = name
-        self.rect = rect
+        self.rect = pygame.Rect(rect)
         self.players = {}
         self.objects = []
         self.monsters = []
 
-    def add_player(self, new_player : Player):
+    def add_player(self, new_player : Player, position : str = None):
         self.players[new_player.name] = new_player
+
+        x = int(self.rect.width/2)
+        y = int(self.rect.height/2)
+
+        if position == Objects.NORTH:
+            y = 40
+        elif position == Objects.SOUTH:
+            y = self.rect.bottom - 80
+
+        print("Adding player at {0},{1}".format(x,y))
+        new_player.set_pos(x,y)
 
     def add_object(self, new_object : RPGObject):
         self.objects.append(new_object)
+        self.rect.union_ip(new_object.rect)
         logging.info("Added {0} at location ({1},{2})".format(new_object.name,new_object.rect.x,new_object.rect.y))
 
     def remove_object(self, object : RPGObject):
@@ -197,7 +210,6 @@ class Floor:
                 if object.is_solid is True:
                     selected_player.back()
                     break
-
 
         selected_player.move(0,dy)
 
@@ -311,6 +323,14 @@ class Game:
                 else:
                     print("The door is locked!")
 
+            elif object.name == Objects.SOUTH:
+                self.current_floor_id = "Floor2"
+                self.current_floor.add_player(self.current_player, position=Objects.NORTH)
+            elif object.name == Objects.NORTH:
+                self.current_floor_id = "Floor1"
+                self.current_floor.add_player(self.current_player, position=Objects.SOUTH)
+
+
     def check_collision(self):
 
         colliding_objects = self.current_floor.colliding_objects(self.current_player)
@@ -345,11 +365,11 @@ class FloorBuilder():
     def load_floors(self):
         floor_name="Floor1"
         new_floor = FloorLayoutLoader.floor_layouts[floor_name]
-        #new_floor = Floor(name = "start", rect=(0,0,500,500))
+        self.floors[floor_name] = new_floor
 
-        # new_player = Player(name="keith", rect=(32, 32, 20, 20))
-        # new_floor.add_player(new_player)
 
+        floor_name="Floor2"
+        new_floor = FloorLayoutLoader.floor_layouts[floor_name]
         self.floors[floor_name] = new_floor
 
 

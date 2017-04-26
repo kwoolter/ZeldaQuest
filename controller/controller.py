@@ -34,8 +34,8 @@ class Controller:
 
         self.game.initialise()
         new_player = self.game.create_player("player1")
-        new_player.set_pos(50,50)
         self.game.add_player(new_player)
+        new_player.set_pos(50,50)
         self.view.initialise(self.game)
 
         pygame.mixer.pre_init(44100, -16, 2, 2048)
