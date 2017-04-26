@@ -10,3 +10,4 @@ D,door,32,32,32,True,True,True
 d,open_door,32,32,32,False,True,False
 K,key,32,32,32,True,True,True
 ^,trap,32,32,32,False,True,False
+S,south,32,32,32

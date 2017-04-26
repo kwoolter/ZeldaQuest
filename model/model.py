@@ -26,6 +26,7 @@ class RPGObject(object):
 
     def __init__(self, name : str,
                  rect : pygame.Rect,
+                 layer : int = 1,
                  height : int = None,
                  solid : bool = True,
                  visible : bool = True,
@@ -33,6 +34,7 @@ class RPGObject(object):
 
         self.name = name
         self._rect = pygame.Rect(rect)
+        self.layer = layer
         self._old_rect = self._rect.copy()
         if height is None:
             height = self._rect.height
@@ -380,6 +382,8 @@ class FloorLayoutLoader():
                     y=0
 
                 floor = FloorLayoutLoader.floor_layouts[floor_layout_name]
+
+                floor_layer = int(row.get("Layer"))
                 floor_layout = row.get("Layout")
                 x=0
                 for object_code in floor_layout:
@@ -387,6 +391,7 @@ class FloorLayoutLoader():
                         new_floor_object = FloorObjectLoader.get_object_copy_by_code(object_code)
                         new_floor_object.rect.x = x
                         new_floor_object.rect.y = y
+                        new_floor_object.layer = floor_layer
                         floor.add_object(new_floor_object)
                     x+=FloorLayoutLoader.DEFAULT_OBJECT_WIDTH
 
