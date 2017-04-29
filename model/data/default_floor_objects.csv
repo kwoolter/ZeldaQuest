@@ -29,3 +29,4 @@ W,west,32,32,32,False,True,True
 \,wall tr,32,32,32,True,True,False
 (,wall bl,32,32,32,True,True,False
 ),wall br,32,32,32,True,True,False
+!,wall block,32,32,32,True,True,False

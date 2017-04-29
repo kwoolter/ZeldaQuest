@@ -37,6 +37,7 @@ class Objects:
     WALL_BL = "wall bl"
     WALL_BR = "wall br"
     WALL_TOP = "wall top"
+    WALL_BLOCK = "wall block"
 
 class RPGObject(object):
 
@@ -140,6 +141,17 @@ class Floor:
         self.objects = []
         self.monsters = []
         self.layers = {}
+
+    def __str__(self):
+        return "Floor {0}: rect={1}, objects={2}, monsters={3}".format(self.name, self.rect, self.object_count, len(self.monsters))
+
+
+    @property
+    def object_count(self):
+        count = 0
+        for layer in self.layers.values():
+            count += len(layer)
+        return count
 
     def add_player(self, new_player : Player, position : str = None):
         self.players[new_player.name] = new_player
@@ -365,7 +377,7 @@ class Game:
                 self.current_floor.add_player(self.current_player, position=Objects.SOUTH)
 
         dt2 = datetime.now()
-        print("move={0}".format(dt2.microsecond - dt1.microsecond))
+        #print("move={0}".format(dt2.microsecond - dt1.microsecond))
 
 
     def check_collision(self):
@@ -409,6 +421,9 @@ class FloorBuilder():
         new_floor = FloorLayoutLoader.floor_layouts[floor_name]
         self.floors[floor_name] = new_floor
 
+        for floor in self.floors.values():
+            print(str(floor))
+
 
 class FloorLayoutLoader():
 
@@ -442,11 +457,10 @@ class FloorLayoutLoader():
                 floor_layout_name = row.get("Name")
 
                 if floor_layout_name != current_layout_name:
+
                     FloorLayoutLoader.floor_layouts[floor_layout_name] = Floor(floor_layout_name,(0,0,0,0))
                     current_layout_name = floor_layout_name
                     y=0
-
-
 
                 floor = FloorLayoutLoader.floor_layouts[floor_layout_name]
 
@@ -454,7 +468,6 @@ class FloorLayoutLoader():
                 if floor_layer != current_floor_layer:
                     current_floor_layer = floor_layer
                     y=0
-
 
                 floor_layout = row.get("Layout")
                 x=0

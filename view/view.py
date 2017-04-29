@@ -72,6 +72,7 @@ class ImageManager:
                                     model.Objects.WALL_LEFT_VERTICAL: "walls-topped11.png",
                                     model.Objects.WALL_RIGHT_VERTICAL: "walls-topped12.png",
                                     model.Objects.WALL_TOP: "walls-topped13.png",
+                                    model.Objects.WALL_BLOCK: "walls-topped14.png",
                                     model.Objects.CRATE: "forest_crate.png",
                                     model.Objects.BUSH: "forest_bush.png",
                                     model.Objects.BOSS: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
@@ -88,6 +89,10 @@ class ImageManager:
                                     model.Objects.SOUTH: "south2.png",
                                     model.Objects.EAST: "east2.png",
                                     model.Objects.WEST: "west2.png",
+                                    model.Objects.NORTH: "tile0.png",
+                                    model.Objects.SOUTH: "tile0.png",
+                                    model.Objects.EAST: "tile0.png",
+                                    model.Objects.WEST: "tile0.png",
                                     model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
                                                         "spike2.png","spike1.png","spike0.png"),
 
@@ -332,7 +337,7 @@ class FloorView(View):
             self.surface.blit(surface, (0,0, self.width, self.height))
 
         dt2 = datetime.now()
-        print("draw={0}".format(dt2.microsecond - dt1.microsecond))
+        #print("draw={0}".format(dt2.microsecond - dt1.microsecond))
 
 
     def model_to_view_rect(self, model_object : model.RPGObject):
