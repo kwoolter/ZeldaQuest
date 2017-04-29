@@ -39,6 +39,8 @@ class Objects:
     WALL_TOP = "wall top"
     WALL_BLOCK = "wall block"
 
+    DIRECTIONS = (NORTH, SOUTH, EAST, WEST )
+
 class RPGObject(object):
 
     TOUCH_FIELD_X = 2
@@ -141,6 +143,7 @@ class Floor:
         self.objects = []
         self.monsters = []
         self.layers = {}
+        self.exits = {}
 
     def __str__(self):
         return "Floor {0}: rect={1}, objects={2}, monsters={3}".format(self.name, self.rect, self.object_count, len(self.monsters))
@@ -154,15 +157,25 @@ class Floor:
         return count
 
     def add_player(self, new_player : Player, position : str = None):
+
         self.players[new_player.name] = new_player
 
-        x = int(self.rect.width/2)
-        y = int(self.rect.height/2)
+        if position in Objects.DIRECTIONS:
+            exit_rect = self.exits[position].rect
+            x = exit_rect.x
+            y = exit_rect.y
 
-        if position == Objects.NORTH:
-            y = 40
-        elif position == Objects.SOUTH:
-            y = self.rect.bottom - 80
+            if position == Objects.NORTH:
+                y = exit_rect.bottom + RPGObject.TOUCH_FIELD_Y + 2
+            elif position == Objects.SOUTH:
+                y = exit_rect.top - new_player.rect.height - RPGObject.TOUCH_FIELD_Y - 2
+            elif position == Objects.WEST:
+                x = exit_rect.right + RPGObject.TOUCH_FIELD_X + 2
+            elif position == Objects.EAST:
+                x = exit_rect.left - RPGObject.TOUCH_FIELD_X + 2
+        else:
+            x= (self.rect.width / 2)
+            y = (self.rect.height / 2)
 
         print("Adding player at {0},{1}".format(x,y))
         new_player.set_pos(x,y)
@@ -177,6 +190,10 @@ class Floor:
         self.rect.union_ip(new_object.rect)
 
         self.layers[new_object.layer] = sorted(objects, key=lambda obj: obj.layer * 1000 + obj.rect.y, reverse=False)
+
+        if new_object.name in Objects.DIRECTIONS:
+            self.exits[new_object.name] = new_object
+
         logging.info("Added {0} at location ({1},{2})".format(new_object.name,new_object.rect.x,new_object.rect.y))
 
     def remove_object(self, object : RPGObject):

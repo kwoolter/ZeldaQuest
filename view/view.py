@@ -89,7 +89,7 @@ class ImageManager:
                                     model.Objects.SOUTH: "south2.png",
                                     model.Objects.EAST: "east2.png",
                                     model.Objects.WEST: "west2.png",
-                                    model.Objects.NORTH: "tile0.png",
+                                    model.Objects.NORTH: "walls-topped15.png",
                                     model.Objects.SOUTH: "tile0.png",
                                     model.Objects.EAST: "tile0.png",
                                     model.Objects.WEST: "tile0.png",
