@@ -51,9 +51,9 @@ Floor2,1,[--\            /--]
 Floor2,1,+++|            1+++
 Floor2,1,{==)            (==}
 Floor2,1,|                  1
-Floor2,1,)       /-\        (
+Floor2,1,|       /-\        1
 Floor2,1,W       (=)        E
-Floor2,1,\                  /
+Floor2,1,|                  1
 Floor2,1,|                  1
 Floor2,1,|               /--]
 Floor2,1,|  /\           (==}
@@ -62,4 +62,4 @@ Floor2,1,|                  1
 Floor2,1,|                  1
 Floor2,1,|                  1
 Floor2,1,[\                 1
-Floor2,1,+[------\S/--------]
+Floor2,1,+[-------S---------]

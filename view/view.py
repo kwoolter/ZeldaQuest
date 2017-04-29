@@ -90,9 +90,9 @@ class ImageManager:
                                     model.Objects.EAST: "east2.png",
                                     model.Objects.WEST: "west2.png",
                                     model.Objects.NORTH: "walls-topped15.png",
-                                    model.Objects.SOUTH: "tile0.png",
-                                    model.Objects.EAST: "tile0.png",
-                                    model.Objects.WEST: "tile0.png",
+                                    model.Objects.SOUTH: "walls-topped16.png",
+                                    model.Objects.EAST: "walls-topped17.png",
+                                    model.Objects.WEST: "walls-topped18.png",
                                     model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
                                                         "spike2.png","spike1.png","spike0.png"),
 
