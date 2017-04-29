@@ -2,6 +2,7 @@ import pygame
 import model
 import os
 import logging
+from datetime import datetime
 
 
 
@@ -232,27 +233,37 @@ class FloorView(View):
 
         super(FloorView, self).__init__()
 
-        self.surface = pygame.Surface((width, height))
+        self.width = width
+        self.height = height
+
+        self.surface = pygame.Surface((self.width, self.height))
         self.floor = None
         self.tile_width = tile_width
         self.tile_height = tile_height
         self.skin_name = None
+        self.layer_surfaces = {}
 
         print("floor w={0},h={1}".format(width, height))
 
-    def initialise(self, floor : model.Floor):
-        self.floor = floor
-
-    def draw(self):
-
-        self.surface.fill(FloorView.BG_COLOUR)
+    def draw_layer(self, layer_id):
 
         if self.floor is None:
             raise ("No Floor to view!")
 
-        view_objects = list(self.floor.players.values()) + self.floor.objects + self.floor.monsters
 
-        view_objects = sorted(view_objects, key=lambda obj : obj.layer * 1000 + obj.rect.y, reverse=False)
+        #print("drawing layer for floor {0}".format(layer_id))
+
+        surface = pygame.Surface((self.width, self.height))
+
+        view_objects = []
+
+        layer = self.floor.layers[layer_id]
+        if layer_id == 1:
+            player_layer = list(self.floor.players.values()) + layer + self.floor.monsters
+            view_objects += sorted(player_layer, key=lambda obj: obj.rect.y, reverse=False)
+        else:
+            view_objects += layer
+
 
         for view_object in view_objects:
             if view_object.is_visible is True:
@@ -263,29 +274,67 @@ class FloorView(View):
                                                               width=view_object.rect.width,
                                                               height = view_object.height)
                     if image is None:
-                        pygame.draw.rect(self.surface, Colours.WHITE, self.model_to_view_rect(view_object))
-                        pygame.draw.rect(self.surface, Colours.RED, self.model_to_view_rect(view_object), 1)
+                        pygame.draw.rect(surface, Colours.WHITE, self.model_to_view_rect(view_object))
+                        pygame.draw.rect(surface, Colours.RED, self.model_to_view_rect(view_object), 1)
                     else:
-                        self.surface.blit(image,self.model_to_view_rect(view_object))
+                        surface.blit(image,self.model_to_view_rect(view_object))
 
                 elif isinstance(view_object, model.Monster):
-                    pygame.draw.rect(self.surface, Colours.RED, self.model_to_view_rect(view_object))
-                    pygame.draw.rect(self.surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)
+                    pygame.draw.rect(surface, Colours.RED, self.model_to_view_rect(view_object))
+                    pygame.draw.rect(surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)
+
                 elif isinstance(view_object, model.RPGObject):
                     image = View.image_manager.get_skin_image(view_object.name,
                                                               tick=self.tick_count,
                                                               width=view_object.rect.width,
                                                               height = view_object.height)
                     if image is None:
-                        pygame.draw.rect(self.surface, Colours.GREEN, self.model_to_view_rect(view_object))
-                        pygame.draw.rect(self.surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)
+                        pygame.draw.rect(surface, Colours.GREEN, self.model_to_view_rect(view_object))
+                        pygame.draw.rect(surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)
                     else:
-                        self.surface.blit(image,self.model_to_view_rect(view_object))
+                        surface.blit(image,self.model_to_view_rect(view_object))
+
+            surface.set_colorkey((0, 0, 0))
+
+        return surface
+
+    def initialise(self, floor : model.Floor):
+
+        if self.floor is None or floor.name != self.floor.name:
+            print("Changing floor from to {0}".format(floor.name))
+            self.floor = floor
+            for layer_id in self.floor.layers.keys():
+                self.layer_surfaces[layer_id] = self.draw_layer(layer_id)
+
+    def draw(self):
+
+        dt1 = datetime.now()
+
+        self.surface.fill(FloorView.BG_COLOUR)
+
+        if self.floor is None:
+            raise ("No Floor to view!")
+
+        layer_surface_ids = sorted(self.layer_surfaces.keys())
+
+        for id in layer_surface_ids:
+
+            if id == 1:
+                surface = self.draw_layer(id)
+            else:
+                surface = self.layer_surfaces[id]
+
+            #print("blitting surface for layer {0} {1}".format(id, surface.get_rect()))
+
+            self.surface.blit(surface, (0,0, self.width, self.height))
+
+        dt2 = datetime.now()
+        print("draw={0}".format(dt2.microsecond - dt1.microsecond))
+
 
     def model_to_view_rect(self, model_object : model.RPGObject):
 
         HEIGHT_ANGLE_FACTOR = 1.0
-
 
         view_rect = model_object.rect.copy()
         bottom = view_rect.bottom

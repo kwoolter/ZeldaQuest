@@ -3,6 +3,7 @@ import logging
 import os
 import csv
 import copy
+from datetime import datetime
 
 class Objects:
 
@@ -138,6 +139,7 @@ class Floor:
         self.players = {}
         self.objects = []
         self.monsters = []
+        self.layers = {}
 
     def add_player(self, new_player : Player, position : str = None):
         self.players[new_player.name] = new_player
@@ -154,26 +156,34 @@ class Floor:
         new_player.set_pos(x,y)
 
     def add_object(self, new_object : RPGObject):
-        self.objects.append(new_object)
+
+        if new_object.layer not in self.layers.keys():
+            self.layers[new_object.layer] = []
+
+        objects = self.layers[new_object.layer]
+        objects.append(new_object)
         self.rect.union_ip(new_object.rect)
+
+        self.layers[new_object.layer] = sorted(objects, key=lambda obj: obj.layer * 1000 + obj.rect.y, reverse=False)
         logging.info("Added {0} at location ({1},{2})".format(new_object.name,new_object.rect.x,new_object.rect.y))
 
     def remove_object(self, object : RPGObject):
-        self.objects.remove(object)
+        objects  = self.layers[object.layer]
+        objects.remove(object)
 
     def swap_object(self, object : RPGObject, new_object_type : str):
+
+        objects  = self.layers[object.layer]
 
         x,y = object.get_pos()
 
         swap_object = FloorObjectLoader.get_object_copy_by_name(new_object_type)
         swap_object.set_pos(x,y)
-        self.objects.remove(object)
-        self.objects.append(swap_object)
-
-
-
+        objects.remove(object)
+        objects.append(swap_object)
 
     def add_monster(self, new_object : Monster):
+
         self.monsters.append(new_object)
 
 
@@ -190,20 +200,24 @@ class Floor:
 
     def colliding_objects(self, target : RPGObject):
 
+        objects = self.layers[target.layer]
+
         colliding = []
 
-        for object in self.objects:
-            if object.layer == target.layer and object.is_colliding(target):
+        for object in objects:
+            if object.is_colliding(target):
                 colliding.append(object)
 
         return colliding
 
     def touching_objects(self, target : RPGObject):
 
+        objects = self.layers[target.layer]
+
         touching = []
 
-        for object in self.objects:
-            if object.layer == target.layer and object.is_touching(target):
+        for object in objects:
+            if object.is_touching(target):
                 touching.append(object)
 
         return touching
@@ -217,7 +231,9 @@ class Floor:
 
         selected_player.move(dx,0)
 
-        for object in self.objects:
+        objects = self.layers[selected_player.layer]
+
+        for object in objects:
 
             if object.is_colliding(selected_player):
                 logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
@@ -227,7 +243,7 @@ class Floor:
 
         selected_player.move(0,dy)
 
-        for object in self.objects:
+        for object in objects:
             if object.is_colliding(selected_player):
                 logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
                 if object.is_solid is True:
@@ -306,6 +322,9 @@ class Game:
 
     def move_player(self, dx : int, dy : int):
 
+        dt1 = datetime.now()
+
+
         self.current_floor.move_player(self.current_player.name, dx,dy)
 
         colliding_objects = self.current_floor.colliding_objects(self.current_player)
@@ -344,6 +363,9 @@ class Game:
             elif object.name == Objects.NORTH:
                 self.current_floor_id = "Floor1"
                 self.current_floor.add_player(self.current_player, position=Objects.SOUTH)
+
+        dt2 = datetime.now()
+        print("move={0}".format(dt2.microsecond - dt1.microsecond))
 
 
     def check_collision(self):

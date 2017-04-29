@@ -89,7 +89,7 @@ class Controller:
                 self.game.move_player(0, 1)
 
 
-            FPSCLOCK.tick(120)
+            FPSCLOCK.tick(220)
 
             self.view.draw()
             self.view.update()
