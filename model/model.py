@@ -417,7 +417,7 @@ class FloorLayoutLoader():
     DEFAULT_OBJECT_WIDTH = 32
     DEFAULT_OBJECT_DEPTH = 32
 
-    EMPTY_OBJECT_CODE = "_"
+    EMPTY_OBJECT_CODE = " "
 
     def __init__(self, file_name):
         self.file_name = file_name
