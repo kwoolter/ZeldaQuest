@@ -18,6 +18,7 @@ class Colours:
     GREY = (128,128,128)
     GOLD = (255, 201, 14)
     YELLOW = (255, 255, 0)
+    TRANSPARENT = (255,1,1)
 
 class ImageManager:
 
@@ -226,6 +227,7 @@ class MainFrame(View):
 class FloorView(View):
 
     BG_COLOUR = Colours.DARK_GREY
+    TRANSPARENT = Colours.TRANSPARENT
     TILE_WIDTH = 32
     TILE_HEIGHT = 32
 
@@ -255,6 +257,8 @@ class FloorView(View):
 
         surface = pygame.Surface((self.width, self.height))
 
+        surface.fill(FloorView.TRANSPARENT)
+
         view_objects = []
 
         layer = self.floor.layers[layer_id]
@@ -263,7 +267,6 @@ class FloorView(View):
             view_objects += sorted(player_layer, key=lambda obj: obj.rect.y, reverse=False)
         else:
             view_objects += layer
-
 
         for view_object in view_objects:
             if view_object.is_visible is True:
@@ -294,7 +297,7 @@ class FloorView(View):
                     else:
                         surface.blit(image,self.model_to_view_rect(view_object))
 
-            surface.set_colorkey((0, 0, 0))
+            surface.set_colorkey(FloorView.TRANSPARENT)
 
         return surface
 
