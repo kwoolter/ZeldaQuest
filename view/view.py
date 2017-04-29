@@ -57,6 +57,19 @@ class ImageManager:
 
                                     model.Objects.TREE: "forest_tree.png",
                                     model.Objects.WALL: "forest_wall.png",
+                                    model.Objects.WALL_CORNER_TL: "walls-topped00.png",
+                                    model.Objects.WALL_CORNER_TR: "walls-topped06.png",
+                                    model.Objects.WALL_CORNER_BL: "walls-topped02.png",
+                                    model.Objects.WALL_CORNER_BR: "walls-topped05.png",
+                                    model.Objects.WALL_TL: "walls-topped01.png",
+                                    model.Objects.WALL_TR: "walls-topped07.png",
+                                    model.Objects.WALL_BL: "walls-topped03.png",
+                                    model.Objects.WALL_BR: "walls-topped04.png",
+                                    model.Objects.WALL_TOP_HORIZONTAL: "walls-topped08.png",
+                                    model.Objects.WALL_BOTTOM_HORIZONTAL: "walls-topped10.png",
+                                    model.Objects.WALL_LEFT_VERTICAL: "walls-topped11.png",
+                                    model.Objects.WALL_RIGHT_VERTICAL: "walls-topped12.png",
+                                    model.Objects.WALL_TOP: "walls-topped13.png",
                                     model.Objects.CRATE: "forest_crate.png",
                                     model.Objects.BUSH: "forest_bush.png",
                                     model.Objects.BOSS: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
@@ -71,8 +84,8 @@ class ImageManager:
                                     model.Objects.TILE1: "tile0.png",
                                     model.Objects.NORTH: "north2.png",
                                     model.Objects.SOUTH: "south2.png",
-                                    model.Objects.EAST: "east.png",
-                                    model.Objects.WEST: "west.png",
+                                    model.Objects.EAST: "east2.png",
+                                    model.Objects.WEST: "west2.png",
                                     model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
                                                         "spike2.png","spike1.png","spike0.png"),
 
@@ -224,6 +237,8 @@ class FloorView(View):
         self.tile_width = tile_width
         self.tile_height = tile_height
         self.skin_name = None
+
+        print("floor w={0},h={1}".format(width, height))
 
     def initialise(self, floor : model.Floor):
         self.floor = floor

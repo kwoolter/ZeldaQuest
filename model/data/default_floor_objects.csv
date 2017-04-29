@@ -13,4 +13,19 @@ K,key,32,32,32,True,True,True
 ^,trap,32,32,32,False,True,False
 S,south,32,32,32,False,True,True
 N,north,32,32,32,False,True,True
--,tile1,32,32,32,False,True,False
+E,east,32,32,32,False,True,True
+W,west,32,32,32,False,True,True
+@,tile1,32,32,32,False,True,False
+{,wall corner tl,32,32,32,True,True,False
+},wall corner tr,32,32,32,True,True,False
+[,wall corner bl,32,32,32,True,True,False
+],wall corner br,32,32,32,True,True,False
+|,wall left vertical,32,32,32,True,True,False
+1,wall right vertical,32,32,32,True,True,False
+=,wall top horizontal,32,32,32,True,True,False
+-,wall bottom horizontal,32,32,32,True,True,False
++,wall top,32,32,32,True,True,False
+/,wall tl,32,32,32,True,True,False
+\,wall tr,32,32,32,True,True,False
+(,wall bl,32,32,32,True,True,False
+),wall br,32,32,32,True,True,False

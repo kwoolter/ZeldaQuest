@@ -23,6 +23,19 @@ class Objects:
     SOUTH = "south"
     EAST = "east"
     WEST = "west"
+    WALL_CORNER_TL = "wall corner tl"
+    WALL_CORNER_TR = "wall corner tr"
+    WALL_CORNER_BL = "wall corner bl"
+    WALL_CORNER_BR = "wall corner br"
+    WALL_TOP_HORIZONTAL = "wall top horizontal"
+    WALL_BOTTOM_HORIZONTAL = "wall bottom horizontal"
+    WALL_LEFT_VERTICAL = "wall left vertical"
+    WALL_RIGHT_VERTICAL = "wall right vertical"
+    WALL_TL = "wall tl"
+    WALL_TR = "wall tr"
+    WALL_BL = "wall bl"
+    WALL_BR = "wall br"
+    WALL_TOP = "wall top"
 
 class RPGObject(object):
 
@@ -106,6 +119,7 @@ class Player(RPGObject):
         self.treasure = 0
         self.keys = 0
         self.HP = 10
+        self.layer = 1
 
 class Monster(RPGObject):
 
@@ -179,7 +193,7 @@ class Floor:
         colliding = []
 
         for object in self.objects:
-            if object.is_colliding(target):
+            if object.layer == target.layer and object.is_colliding(target):
                 colliding.append(object)
 
         return colliding
@@ -189,7 +203,7 @@ class Floor:
         touching = []
 
         for object in self.objects:
-            if object.is_touching(target):
+            if object.layer == target.layer and object.is_touching(target):
                 touching.append(object)
 
         return touching
@@ -297,7 +311,8 @@ class Game:
         colliding_objects = self.current_floor.colliding_objects(self.current_player)
 
         for object in colliding_objects:
-            print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+            pass
+            #print("{0} is colliding with {1}".format(self.current_player.name, object.name))
 
         touching_objects = self.current_floor.touching_objects(self.current_player)
 
