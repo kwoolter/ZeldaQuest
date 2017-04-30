@@ -11,10 +11,10 @@ D,door,32,32,32,True,True,True
 d,open_door,32,32,32,False,True,False
 K,key,32,32,32,True,True,True
 ^,trap,32,32,32,False,True,False
-S,south, 96, 64, 64,False,True,True
-N,north,96,64,64,False,True,True
-E,east, 64, 96, 96,False,True,True
-W,west, 64, 96, 96,False,True,True
+S,south,128,64,64,False,True,True
+N,north,128,64,64,False,True,True
+E,east, 64, 128, 128,False,True,True
+W,west, 64, 128, 128,False,True,True
 @,tile1,32,32,32,False,True,False
 {,wall corner tl, 64, 64, 64,True,True,False
 },wall corner tr, 64, 64, 64,True,True,False

@@ -359,8 +359,17 @@ class Game:
         colliding_objects = self.current_floor.colliding_objects(self.current_player)
 
         for object in colliding_objects:
-            pass
-            #print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+            print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+            if object.name == Objects.SOUTH:
+                self.current_floor_id = "Floor2"
+                self.current_floor.add_player(self.current_player, position=Objects.NORTH)
+            elif object.name == Objects.NORTH:
+                self.current_floor_id = "Floor1"
+                self.current_floor.add_player(self.current_player, position=Objects.SOUTH)
+            elif object.name == Objects.EAST:
+                self.current_floor_id = "Floor3"
+                self.current_floor.add_player(self.current_player, position=Objects.WEST)
+
 
         touching_objects = self.current_floor.touching_objects(self.current_player)
 
@@ -386,12 +395,7 @@ class Game:
                 else:
                     print("The door is locked!")
 
-            elif object.name == Objects.SOUTH:
-                self.current_floor_id = "Floor2"
-                self.current_floor.add_player(self.current_player, position=Objects.NORTH)
-            elif object.name == Objects.NORTH:
-                self.current_floor_id = "Floor1"
-                self.current_floor.add_player(self.current_player, position=Objects.SOUTH)
+
 
         dt2 = datetime.now()
         #print("move={0}".format(dt2.microsecond - dt1.microsecond))
@@ -429,14 +433,12 @@ class FloorBuilder():
         self.floor_layouts.load()
 
     def load_floors(self):
-        floor_name="Floor1"
-        new_floor = FloorLayoutLoader.floor_layouts[floor_name]
-        self.floors[floor_name] = new_floor
 
+        floors = ("Floor1", "Floor2", "Floor3")
 
-        floor_name="Floor2"
-        new_floor = FloorLayoutLoader.floor_layouts[floor_name]
-        self.floors[floor_name] = new_floor
+        for floor_name in floors:
+            new_floor = FloorLayoutLoader.floor_layouts[floor_name]
+            self.floors[floor_name] = new_floor
 
         for floor in self.floors.values():
             print(str(floor))
