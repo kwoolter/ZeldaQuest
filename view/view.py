@@ -3,8 +3,7 @@ import model
 import os
 import logging
 from datetime import datetime
-
-
+from pygame.locals import *
 
 class Colours:
     # set up the colours
@@ -43,7 +42,7 @@ class ImageManager:
             filename = ImageManager.RESOURCES_DIR + image_file_name
             try:
                 logging.info("Loading image {0}...".format(filename))
-                original_image = pygame.image.load(filename)
+                original_image = pygame.image.load(filename).convert_alpha()
                 image = pygame.transform.scale(original_image, (width, height))
                 ImageManager.image_cache[image_file_name] = image
                 logging.info("Image {0} loaded and cached.".format(filename))
@@ -176,7 +175,7 @@ class MainFrame(View):
         playing_area_height = height - MainFrame.TITLE_HEIGHT - MainFrame.STATUS_HEIGHT
         playing_area_width = width
 
-        self.surface = pygame.display.set_mode((width, height))
+        self.surface = pygame.display.set_mode((width, height),DOUBLEBUF )
 
         self.floor_view = FloorView(playing_area_width, playing_area_height)
 
@@ -245,6 +244,7 @@ class FloorView(View):
         self.height = height
 
         self.surface = pygame.Surface((self.width, self.height))
+        self.surface.set_alpha(None)
         self.floor = None
         self.tile_width = tile_width
         self.tile_height = tile_height
@@ -305,8 +305,6 @@ class FloorView(View):
 
         print("blitted {0} objects".format(count))
 
-
-
         return surface
 
     def initialise(self, floor : model.Floor):
@@ -317,6 +315,7 @@ class FloorView(View):
             for layer_id in self.floor.layers.keys():
                 surface = pygame.Surface((self.width, self.height))
                 surface.set_colorkey(FloorView.TRANSPARENT)
+                surface.set_alpha(None)
                 self.layer_surfaces[layer_id] = self.draw_layer(surface, layer_id)
 
     def draw(self):
