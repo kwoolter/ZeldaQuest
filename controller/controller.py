@@ -80,16 +80,15 @@ class Controller:
             # Move the player if an arrow key is pressed
             key = pygame.key.get_pressed()
             if key[pygame.K_LEFT]:
-                self.game.move_player(-1, 0)
+                self.game.move_player(-2, 0)
             if key[pygame.K_RIGHT]:
-                self.game.move_player(1, 0)
+                self.game.move_player(2, 0)
             if key[pygame.K_UP]:
-                self.game.move_player(0, -1)
+                self.game.move_player(0, -2)
             if key[pygame.K_DOWN]:
-                self.game.move_player(0, 1)
+                self.game.move_player(0, 2)
 
-
-            FPSCLOCK.tick(220)
+            FPSCLOCK.tick(60)
 
             self.view.draw()
             self.view.update()
