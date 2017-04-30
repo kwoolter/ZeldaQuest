@@ -231,6 +231,8 @@ class Floor:
 
         objects = self.layers[target.layer]
 
+        #print("colliding check {0} objects".format(len(objects)))
+
         colliding = []
 
         for object in objects:
@@ -242,6 +244,8 @@ class Floor:
     def touching_objects(self, target : RPGObject):
 
         objects = self.layers[target.layer]
+
+        #print("touching check {0} objects".format(len(objects)))
 
         touching = []
 
@@ -369,7 +373,6 @@ class Game:
             elif object.name == Objects.EAST:
                 self.current_floor_id = "Floor3"
                 self.current_floor.add_player(self.current_player, position=Objects.WEST)
-
 
         touching_objects = self.current_floor.touching_objects(self.current_player)
 

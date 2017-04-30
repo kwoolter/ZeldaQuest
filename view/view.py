@@ -47,6 +47,7 @@ class ImageManager:
                 image = pygame.transform.scale(original_image, (width, height))
                 ImageManager.image_cache[image_file_name] = image
                 logging.info("Image {0} loaded and cached.".format(filename))
+                print("loading img")
             except Exception as err:
                 print(str(err))
 
@@ -252,15 +253,12 @@ class FloorView(View):
 
         print("floor w={0},h={1}".format(width, height))
 
-    def draw_layer(self, layer_id):
+    def draw_layer(self, surface, layer_id):
 
         if self.floor is None:
             raise ("No Floor to view!")
 
-
         #print("drawing layer for floor {0}".format(layer_id))
-
-        surface = pygame.Surface((self.width, self.height))
 
         surface.fill(FloorView.TRANSPARENT)
 
@@ -273,8 +271,11 @@ class FloorView(View):
         else:
             view_objects += layer
 
+        count=0
+
         for view_object in view_objects:
             if view_object.is_visible is True:
+                count+=1
                 if isinstance(view_object, model.Player):
 
                     image = View.image_manager.get_skin_image(model.Objects.PLAYER,
@@ -302,7 +303,9 @@ class FloorView(View):
                     else:
                         surface.blit(image,self.model_to_view_rect(view_object))
 
-            surface.set_colorkey(FloorView.TRANSPARENT)
+        print("blitted {0} objects".format(count))
+
+
 
         return surface
 
@@ -312,7 +315,9 @@ class FloorView(View):
             print("Changing floor from to {0}".format(floor.name))
             self.floor = floor
             for layer_id in self.floor.layers.keys():
-                self.layer_surfaces[layer_id] = self.draw_layer(layer_id)
+                surface = pygame.Surface((self.width, self.height))
+                surface.set_colorkey(FloorView.TRANSPARENT)
+                self.layer_surfaces[layer_id] = self.draw_layer(surface, layer_id)
 
     def draw(self):
 
@@ -327,17 +332,17 @@ class FloorView(View):
 
         for id in layer_surface_ids:
 
+            surface = self.layer_surfaces[id]
+
             if id == 1:
-                surface = self.draw_layer(id)
-            else:
-                surface = self.layer_surfaces[id]
+                surface = self.draw_layer(surface, id)
 
             #print("blitting surface for layer {0} {1}".format(id, surface.get_rect()))
 
             self.surface.blit(surface, (0,0, self.width, self.height))
 
         dt2 = datetime.now()
-        #print("draw={0}".format(dt2.microsecond - dt1.microsecond))
+        print("draw={0}".format(dt2.microsecond - dt1.microsecond))
 
 
     def model_to_view_rect(self, model_object : model.RPGObject):
