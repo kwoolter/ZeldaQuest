@@ -303,7 +303,7 @@ class FloorView(View):
                     else:
                         surface.blit(image,self.model_to_view_rect(view_object))
 
-        print("blitted {0} objects".format(count))
+        #print("blitted {0} objects".format(count))
 
         return surface
 
@@ -320,7 +320,7 @@ class FloorView(View):
 
     def draw(self):
 
-        dt1 = datetime.now()
+        #dt1 = datetime.now()
 
         self.surface.fill(FloorView.BG_COLOUR)
 
@@ -340,8 +340,8 @@ class FloorView(View):
 
             self.surface.blit(surface, (0,0, self.width, self.height))
 
-        dt2 = datetime.now()
-        print("draw={0}".format(dt2.microsecond - dt1.microsecond))
+        #dt2 = datetime.now()
+        #print("draw={0}".format(dt2.microsecond - dt1.microsecond))
 
 
     def model_to_view_rect(self, model_object : model.RPGObject):

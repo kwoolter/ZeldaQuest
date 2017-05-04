@@ -1,0 +1,4 @@
+FromID,ToID,Direction,Description,Lockable,Locked,LockedDescription,Reversible,Hidden
+1,2,SOUTH,through a door way,,,,,
+1,3,EAST,through a door way,,,,,
+1,4,WEST,through a door way,,,,,
