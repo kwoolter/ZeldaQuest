@@ -304,6 +304,8 @@ class FloorView(View):
         if self.floor is None:
             raise ("No Floor to view!")
 
+        skin_name = self.floor.skin_name
+
         #print("drawing layer for floor {0}".format(layer_id))
 
         surface.fill(FloorView.TRANSPARENT)
@@ -342,7 +344,8 @@ class FloorView(View):
                     image = View.image_manager.get_skin_image(view_object.name,
                                                               tick=self.tick_count,
                                                               width=view_object.rect.width,
-                                                              height = view_object.height)
+                                                              height = view_object.height,
+                                                              skin_name=skin_name)
                     if image is None:
                         pygame.draw.rect(surface, Colours.GREEN, self.model_to_view_rect(view_object))
                         pygame.draw.rect(surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)

@@ -160,9 +160,10 @@ class Floor:
                           EXIT_UP : EXIT_DOWN,
                           EXIT_DOWN : EXIT_UP}
 
-    def __init__(self, id : int, name : str, rect : pygame.Rect):
+    def __init__(self, id : int, name : str, rect : pygame.Rect, skin_name : str = "default"):
         self.id = id
         self.name = name
+        self.skin_name = skin_name
         self.rect = pygame.Rect(rect)
         self.players = {}
         self.objects = []
@@ -536,10 +537,12 @@ class FloorLayoutLoader():
 
                 floor_id = int(row.get("ID"))
                 floor_layout_name = row.get("Name")
+                floor_skin_name = row.get("Skin")
+
 
                 if floor_id != current_floor_id:
 
-                    FloorLayoutLoader.floor_layouts[floor_id] = Floor(floor_id, floor_layout_name,(0,0,0,0))
+                    FloorLayoutLoader.floor_layouts[floor_id] = Floor(floor_id, floor_layout_name,(0,0,0,0), skin_name=floor_skin_name)
                     current_floor_id = floor_id
                     y=0
 
@@ -549,6 +552,7 @@ class FloorLayoutLoader():
                 if floor_layer != current_floor_layer:
                     current_floor_layer = floor_layer
                     y=0
+
 
                 floor_layout = row.get("Layout")
                 x=0
