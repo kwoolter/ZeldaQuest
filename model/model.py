@@ -188,17 +188,18 @@ class Floor:
 
         if position in self.exits.keys():
             exit_rect = self.exits[position].rect
-            x = exit_rect.x
-            y = exit_rect.y
+            player_rect = new_player.rect
+            x = exit_rect.centerx - int(player_rect.width/2)
+            y = exit_rect.centery - int(player_rect.height/2)
 
             if position == Floor.EXIT_NORTH:
-                y = exit_rect.bottom + RPGObject.TOUCH_FIELD_Y + 2
+                y = exit_rect.bottom + RPGObject.TOUCH_FIELD_Y + 1
             elif position == Floor.EXIT_SOUTH:
-                y = exit_rect.top - new_player.rect.height - RPGObject.TOUCH_FIELD_Y - 2
+                y = exit_rect.top - new_player.rect.height - RPGObject.TOUCH_FIELD_Y - 1
             elif position == Floor.EXIT_WEST:
-                x = exit_rect.right + RPGObject.TOUCH_FIELD_X + 2
+                x = exit_rect.right + RPGObject.TOUCH_FIELD_X + 1
             elif position == Floor.EXIT_EAST:
-                x = exit_rect.left - new_player.rect.width - RPGObject.TOUCH_FIELD_X - 2
+                x = exit_rect.left - new_player.rect.width - RPGObject.TOUCH_FIELD_X - 1
         else:
             x= (self.rect.width / 2)
             y = (self.rect.height / 2)

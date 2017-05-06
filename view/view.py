@@ -72,7 +72,7 @@ class ImageManager:
                                     model.Objects.WALL_LEFT_VERTICAL: "brick-walls11.png",
                                     model.Objects.WALL_RIGHT_VERTICAL: "brick-walls12.png",
                                     model.Objects.WALL_TOP: "brick-walls13.png",
-                                    model.Objects.WALL_BLOCK: "brick-walls14.png",
+                                    model.Objects.WALL_BLOCK: "brick-walls-block.png",
                                     model.Objects.CRATE: "forest_crate.png",
                                     model.Objects.BUSH: "forest_bush.png",
                                     model.Objects.BOSS: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
@@ -89,10 +89,10 @@ class ImageManager:
                                     model.Objects.SOUTH: "south2.png",
                                     model.Objects.EAST: "east2.png",
                                     model.Objects.WEST: "west2.png",
-                                    model.Objects.NORTH: "brick-walls15.png",
-                                    model.Objects.SOUTH: "brick-walls16.png",
-                                    model.Objects.EAST: "brick-walls17.png",
-                                    model.Objects.WEST: "brick-walls18.png",
+                                    model.Objects.NORTH: "brick-walls-doors-north.png",
+                                    model.Objects.SOUTH: "brick-walls-doors-south.png",
+                                    model.Objects.EAST: "brick-walls-doors-east.png",
+                                    model.Objects.WEST: "brick-walls-doors-west.png",
                                     model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
                                                         "spike2.png","spike1.png","spike0.png"),
 
