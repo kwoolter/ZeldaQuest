@@ -62,26 +62,26 @@ ID,Name,Skin,Layer,Layout
 1,Floor1,default,1,                    
 1,Floor1,default,1,|                 1 
 1,Floor1,default,1,[ - - - S   - - - ] 
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
-2,Floor2,default,0,@@@@@@@@@@@@@@@@@@@@
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
+2,Floor2,default,0,********************
 2,Floor2,default,1,{ = = = N   = = = } 
 2,Floor2,default,1,                    
 2,Floor2,default,1,|                 1 
@@ -213,7 +213,7 @@ ID,Name,Skin,Layer,Layout
 7,Floor7,default,1,|                   
 7,Floor7,default,1,    ( = = = = )   1 
 7,Floor7,default,1,|                   
-7,Floor7,default,1,1
+7,Floor7,default,1,_                 1 
 7,Floor7,default,1,|                   
 7,Floor7,default,1,[ - - - - - - - - ] 
 8,Floor8,default,1,!!!!!( =N   =) !!!!!

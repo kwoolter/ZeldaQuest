@@ -87,6 +87,7 @@ class ImageManager:
                                     model.Objects.DOOR_OPEN: "door_open.png",
                                     model.Objects.KEY: "key.png",
                                     model.Objects.TILE1: "tile1.png",
+                                    model.Objects.TILE2: "tile2.png",
                                     model.Objects.NORTH: "north2.png",
                                     model.Objects.SOUTH: "south2.png",
                                     model.Objects.EAST: "east2.png",

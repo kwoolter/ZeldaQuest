@@ -13,6 +13,7 @@ class Objects:
     TREE2 = "tree2"
     GRASS = "grass"
     TILE1 = "tile1"
+    TILE2 = "tile2"
     CRATE = "crate"
     BUSH = "bush"
     WALL = "wall"
@@ -293,24 +294,36 @@ class Floor:
 
         selected_player.move(dx,0)
 
+        #print("floor:{1}, player:{0}, out={2}".format(selected_player.rect, self.rect, self.rect.contains(selected_player.rect)))
+
         objects = self.layers[selected_player.layer]
 
-        for object in objects:
+        if self.rect.contains(selected_player.rect) == False:
+            #print("out of bounds")
+            selected_player.back()
+        else:
 
-            if object.is_colliding(selected_player):
-                logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
-                if object.is_solid is True:
-                    selected_player.back()
-                    break
+            for object in objects:
+
+                if object.is_colliding(selected_player):
+                    logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
+                    if object.is_solid is True:
+                        selected_player.back()
+                        break
 
         selected_player.move(0,dy)
 
-        for object in objects:
-            if object.is_colliding(selected_player):
-                logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
-                if object.is_solid is True:
-                    selected_player.back()
-                    break
+        if self.rect.contains(selected_player.rect) == False:
+            #print("out of bounds")
+            selected_player.back()
+
+        else:
+            for object in objects:
+                if object.is_colliding(selected_player):
+                    logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
+                    if object.is_solid is True:
+                        selected_player.back()
+                        break
 
 class Game:
 
