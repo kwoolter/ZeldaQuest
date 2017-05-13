@@ -7,3 +7,4 @@ FromID,ToID,Direction,Description,Lockable,Locked,LockedDescription,Reversible,H
 3,7,SOUTH,through a door way,,,,,
 2,7,EAST,through a door way,,,,,
 1,8,NORTH,through a door way,,,,,
+8,9,NORTH,through a gate,,,,,

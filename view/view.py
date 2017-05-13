@@ -57,7 +57,9 @@ class ImageManager:
         new_skin_name = ImageManager.DEFAULT_SKIN
         new_skin = (new_skin_name, {
 
-                                    model.Objects.TREE: "forest_tree.png",
+                                    model.Objects.TREE1: "tree1.png",
+                                    model.Objects.TREE2: "tree2.png",
+                                    model.Objects.GRASS: "grass2.png",
                                     model.Objects.WALL: "forest_wall.png",
                                     model.Objects.WALL_CORNER_TL: "brick-walls00.png",
                                     model.Objects.WALL_CORNER_TR: "brick-walls06.png",
@@ -104,7 +106,7 @@ class ImageManager:
         new_skin_name = "forest"
         new_skin = (new_skin_name, {
 
-                                    model.Objects.TREE: "forest_tree.png",
+                                    model.Objects.TREE1: "forest_tree.png",
                                     model.Objects.WALL: "forest_wall.png",
                                     model.Objects.WALL_CORNER_TL: "walls-topped00.png",
                                     model.Objects.WALL_CORNER_TR: "walls-topped06.png",

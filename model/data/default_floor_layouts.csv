@@ -213,7 +213,7 @@ ID,Name,Skin,Layer,Layout
 7,Floor7,default,1,|                   
 7,Floor7,default,1,    ( = = = = )   1 
 7,Floor7,default,1,|                   
-7,Floor7,default,1,                  1 
+7,Floor7,default,1,1
 7,Floor7,default,1,|                   
 7,Floor7,default,1,[ - - - - - - - - ] 
 8,Floor8,default,1,!!!!!( =N   =) !!!!!
@@ -236,3 +236,42 @@ ID,Name,Skin,Layer,Layout
 8,Floor8,default,1,!                  !
 8,Floor8,default,1,!    / -S   -\     !
 8,Floor8,default,1,!!!!!          !!!!!
+9,Floor9,default,1,      ( N   )    
+9,Floor9,default,1,                    
+9,Floor9,default,1,                    
+9,Floor9,default,1,                    
+9,Floor9,default,1,            T      
+9,Floor9,default,1,                   
+9,Floor9,default,1,\                 / 
+9,Floor9,default,1,    t               
+9,Floor9,default,1,W                 E 
+9,Floor9,default,1,           T        
+9,Floor9,default,1,                    
+9,Floor9,default,1,                    
+9,Floor9,default,1,)                 ( 
+9,Floor9,default,1,                    
+9,Floor9,default,1,      t             
+9,Floor9,default,1,                    
+9,Floor9,default,1,                    
+9,Floor9,default,1,                    
+9,Floor9,default,1,    T / S   \ T     
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,                    
+9,Floor9,default,0,g g g g g g g g g g 
+9,Floor9,default,0,

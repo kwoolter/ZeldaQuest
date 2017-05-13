@@ -9,7 +9,9 @@ import utils.trpg as trpg
 class Objects:
 
     PLAYER = "player"
-    TREE = "tree"
+    TREE1 = "tree1"
+    TREE2 = "tree2"
+    GRASS = "grass"
     TILE1 = "tile1"
     CRATE = "crate"
     BUSH = "bush"

@@ -30,3 +30,6 @@ W,west, 64, 128, 128,False,True,True
 (,wall bl, 64, 64, 64,True,True,False
 ),wall br, 64, 64, 64,True,True,False
 !,wall block,32,32,32,True,True,False
+T,tree1,72,32,86,True,True,False
+t,tree2,82,32,90,True,True,False
+g,grass,64,64,64,True,True,False
