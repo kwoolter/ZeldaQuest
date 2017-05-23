@@ -1,16 +1,16 @@
 ID,Name,Skin,Layer,Layout
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
-99,FloorTest,default,0,@@@@@@@@@@@@@@@@@@@@
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
+99,FloorTest,default,0,FFFFFFFFFFFFFFFFFFFF
 99,FloorTest,default,1,####################
 99,FloorTest,default,1,#     $  ##        #
 99,FloorTest,default,1,#         #     $  #
@@ -23,65 +23,64 @@ ID,Name,Skin,Layer,Layout
 99,FloorTest,default,1,#     ^     d      #
 99,FloorTest,default,1,#           #    $##
 99,FloorTest,default,1,#########S##########
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,0,@@@@@@@@@@@@@@@@@@@@
-1,Floor1,default,1,{ = = = N   = = = } 
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,0,FFFFFFFFFFFFFFFFFFFF
+1,Floor1,default,1,{ = = = N   = =n =} 
 1,Floor1,default,1,                    
+1,Floor1,default,1,|                 1 
+1,Floor1,default,1,   c            c   
 1,Floor1,default,1,|                 1 
 1,Floor1,default,1,                    
 1,Floor1,default,1,|                 1 
 1,Floor1,default,1,                    
-1,Floor1,default,1,|                 1 
 1,Floor1,default,1,W                 E 
-1,Floor1,default,1,                    
+1,Floor1,default,1,       K    K       
 1,Floor1,default,1,                    
 1,Floor1,default,1,                    
 1,Floor1,default,1,|                 1 
 1,Floor1,default,1,                    
-1,Floor1,default,1,|                 1 
+1,Floor1,default,1,|        k        1 
 1,Floor1,default,1,                    
-1,Floor1,default,1,|                 1 
+1,Floor1,default,1,|  c            c 1 
 1,Floor1,default,1,                    
-1,Floor1,default,1,|                 1 
 1,Floor1,default,1,[ - - - S   - - - ] 
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
-2,Floor2,default,0,********************
+2,Floor2,default,0,                    
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
+2,Floor2,default,0,                    
+2,Floor2,default,0,* * * * * * * * * * 
 2,Floor2,default,1,{ = = = N   = = = } 
 2,Floor2,default,1,                    
 2,Floor2,default,1,|                 1 
@@ -120,26 +119,26 @@ ID,Name,Skin,Layer,Layout
 3,Floor3,default,1,                    
 3,Floor3,default,1,|                 1 
 3,Floor3,default,1,[ - - - S   - - - ] 
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
-4,Floor4,default,0,@@@@@@@@@@@@@@@@@@@@
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
+4,Floor4,default,0,FFFFFFFFFFFFFFFFFFFF
 4,Floor4,default,1,+ + + { N   } + + + 
 4,Floor4,default,1,                    
 4,Floor4,default,1,+ + + |     1 + + + 
@@ -236,6 +235,25 @@ ID,Name,Skin,Layer,Layout
 8,Floor8,default,1,!                  !
 8,Floor8,default,1,!    / -S   -\     !
 8,Floor8,default,1,!!!!!          !!!!!
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
+8,Floor8,default,0,                    
+8,Floor8,default,0,* * * * * * * * * * 
 9,Floor9,default,1,      ( N   )    
 9,Floor9,default,1,                    
 9,Floor9,default,1,                    

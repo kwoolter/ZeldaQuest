@@ -19,9 +19,12 @@ class Objects:
     WALL = "wall"
     PLAYER = "player"
     TREASURE = "treasure"
+    TREASURE_CHEST = "treasure chest"
     DOOR = "door"
+    DOOR_NORTH = "door north"
     DOOR_OPEN = "open_door"
     KEY = "key"
+    BOSS_KEY = "boss key"
     TRAP = "trap"
     BOSS = "boss"
     NORTH = "north"
@@ -46,6 +49,7 @@ class Objects:
     WALL_BLOCK = "wall block"
 
     DIRECTIONS = (NORTH, SOUTH, EAST, WEST )
+    DOORS = (DOOR_NORTH, DOOR)
 
 class RPGObject(object):
 
@@ -429,12 +433,20 @@ class Game:
                 self.current_floor.remove_object(object)
                 print("You found some treasure!")
 
-            if object.name == Objects.KEY:
+            elif object.name == Objects.TREASURE_CHEST:
+                if self.current_player.keys > 0:
+                    self.current_player.keys -= 1
+                    self.current_floor.remove_object(object)
+                    print("You opened the chest!")
+                else:
+                    print("You don't have a key.")
+
+            elif object.name == Objects.KEY:
                 self.current_player.keys += 1
                 self.current_floor.remove_object(object)
                 print("You found a key!")
 
-            elif object.name == Objects.DOOR:
+            elif object.name in Objects.DOORS:
                 print("You found a door!")
                 if self.current_player.keys > 0:
                     self.current_player.keys -= 1
