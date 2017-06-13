@@ -1,13 +1,15 @@
-import pygame
+import copy
+import csv
 import logging
 import os
-import csv
-import copy
 from datetime import datetime
+
+import pygame
+
 import utils.trpg as trpg
 
-class Objects:
 
+class Objects:
     PLAYER = "player"
     TREE1 = "tree1"
     TREE2 = "tree2"
@@ -48,24 +50,24 @@ class Objects:
     WALL_TOP = "wall top"
     WALL_BLOCK = "wall block"
 
-    DIRECTIONS = (NORTH, SOUTH, EAST, WEST )
+    DIRECTIONS = (NORTH, SOUTH, EAST, WEST)
     DOORS = (DOOR_NORTH, DOOR)
 
+
 class RPGObject(object):
+    TOUCH_FIELD_X = 4
+    TOUCH_FIELD_Y = 4
 
-    TOUCH_FIELD_X = 2
-    TOUCH_FIELD_Y = 2
-
-    def __init__(self, name : str,
-                 rect : pygame.Rect,
-                 layer : int = 1,
-                 height : int = None,
-                 solid : bool = True,
-                 visible : bool = True,
-                 interactable : bool = True):
-
+    def __init__(self, name: str,
+                 rect: pygame.Rect,
+                 layer: int = 1,
+                 height: int = None,
+                 solid: bool = True,
+                 visible: bool = True,
+                 interactable: bool = True):
         self.name = name
         self._rect = pygame.Rect(rect)
+
         self.layer = layer
         self._old_rect = self._rect.copy()
         if height is None:
@@ -93,28 +95,27 @@ class RPGObject(object):
         self._rect = self._old_rect.copy()
 
     def is_colliding(self, other_object):
-        return self != other_object and\
-                self.layer == other_object.layer and\
-                self.rect.colliderect(other_object.rect)
+        return self.layer == other_object.layer and \
+               self != other_object and \
+               self.rect.colliderect(other_object.rect)
 
     def is_touching(self, other_object):
+        # logging.info("Checking {0} touching {1}".format(touch_field, other_object.rect))
 
-        touch_field = self.rect.inflate(RPGObject.TOUCH_FIELD_X, RPGObject.TOUCH_FIELD_Y)
+        touch_field = self._rect.inflate(RPGObject.TOUCH_FIELD_X, RPGObject.TOUCH_FIELD_Y)
 
-        logging.info("Checking {0} touching {1}".format(touch_field, other_object.rect))
-
-        return self != other_object and \
-               self.layer == other_object.layer and \
-               self.is_visible and\
-               self.is_interactable and\
+        return self.layer == other_object.layer and \
+               self.is_visible and \
+               self.is_interactable and \
+               self != other_object and \
                touch_field.colliderect(other_object.rect)
 
-    def move(self, dx : int, dy : int):
+    def move(self, dx: int, dy: int):
         self._old_rect = self._rect.copy()
         self.rect.x += dx
         self.rect.y += dy
 
-    def set_pos(self, x : int, y : int):
+    def set_pos(self, x: int, y: int):
         self._old_rect = self._rect.copy()
         self.rect.x = x
         self.rect.y = y
@@ -122,30 +123,28 @@ class RPGObject(object):
     def get_pos(self):
         return self._rect.x, self._rect.y
 
+
 class Player(RPGObject):
-
-    def __init__(self, name : str,
-                 rect : pygame.Rect,
-                 height : int = 40):
-
+    def __init__(self, name: str,
+                 rect: pygame.Rect,
+                 height: int = 40):
         super(Player, self).__init__(name=name, rect=rect, height=height)
 
         self.treasure = 0
         self.keys = 0
+        self.boss_keys = 0
         self.HP = 10
         self.layer = 1
 
+
 class Monster(RPGObject):
-
-    def __init__(self, name : str,
-                 rect : pygame.Rect,
-                 height : int = 30):
-
+    def __init__(self, name: str,
+                 rect: pygame.Rect,
+                 height: int = 30):
         super(Monster, self).__init__(name=name, rect=rect, height=height)
 
 
 class Floor:
-
     EXIT_NORTH = "NORTH"
     EXIT_SOUTH = "SOUTH"
     EXIT_EAST = "EAST"
@@ -153,21 +152,21 @@ class Floor:
     EXIT_UP = "UP"
     EXIT_DOWN = "DOWN"
 
-    OBJECT_TO_DIRECTION = {Objects.WEST : EXIT_WEST,
-                           Objects.EAST : EXIT_EAST,
-                           Objects.NORTH : EXIT_NORTH,
-                           Objects.SOUTH : EXIT_SOUTH,
-                           Objects.UP : EXIT_UP,
-                           Objects.DOWN : EXIT_DOWN}
+    OBJECT_TO_DIRECTION = {Objects.WEST: EXIT_WEST,
+                           Objects.EAST: EXIT_EAST,
+                           Objects.NORTH: EXIT_NORTH,
+                           Objects.SOUTH: EXIT_SOUTH,
+                           Objects.UP: EXIT_UP,
+                           Objects.DOWN: EXIT_DOWN}
 
-    REVERSE_DIRECTION = { EXIT_WEST : EXIT_EAST,
-                          EXIT_EAST : EXIT_WEST,
-                          EXIT_NORTH : EXIT_SOUTH,
-                          EXIT_SOUTH : EXIT_NORTH,
-                          EXIT_UP : EXIT_DOWN,
-                          EXIT_DOWN : EXIT_UP}
+    REVERSE_DIRECTION = {EXIT_WEST: EXIT_EAST,
+                         EXIT_EAST: EXIT_WEST,
+                         EXIT_NORTH: EXIT_SOUTH,
+                         EXIT_SOUTH: EXIT_NORTH,
+                         EXIT_UP: EXIT_DOWN,
+                         EXIT_DOWN: EXIT_UP}
 
-    def __init__(self, id : int, name : str, rect : pygame.Rect, skin_name : str = "default"):
+    def __init__(self, id: int, name: str, rect: pygame.Rect, skin_name: str = "default"):
         self.id = id
         self.name = name
         self.skin_name = skin_name
@@ -179,8 +178,8 @@ class Floor:
         self.exits = {}
 
     def __str__(self):
-        return "Floor {0}: rect={1}, objects={2}, monsters={3}".format(self.name, self.rect, self.object_count, len(self.monsters))
-
+        return "Floor {0}: rect={1}, objects={2}, monsters={3}".format(self.name, self.rect, self.object_count,
+                                                                       len(self.monsters))
 
     @property
     def object_count(self):
@@ -189,15 +188,15 @@ class Floor:
             count += len(layer)
         return count
 
-    def add_player(self, new_player : Player, position : str = None):
+    def add_player(self, new_player: Player, position: str = None):
 
         self.players[new_player.name] = new_player
 
         if position in self.exits.keys():
             exit_rect = self.exits[position].rect
             player_rect = new_player.rect
-            x = exit_rect.centerx - int(player_rect.width/2)
-            y = exit_rect.centery - int(player_rect.height/2)
+            x = exit_rect.centerx - int(player_rect.width / 2)
+            y = exit_rect.centery - int(player_rect.height / 2)
 
             if position == Floor.EXIT_NORTH:
                 y = exit_rect.bottom + RPGObject.TOUCH_FIELD_Y + 1
@@ -208,13 +207,13 @@ class Floor:
             elif position == Floor.EXIT_EAST:
                 x = exit_rect.left - new_player.rect.width - RPGObject.TOUCH_FIELD_X - 1
         else:
-            x= (self.rect.width / 2)
+            x = (self.rect.width / 2)
             y = (self.rect.height / 2)
 
-        print("Adding player at {0},{1}".format(x,y))
-        new_player.set_pos(x,y)
+        print("Adding player at {0},{1}".format(x, y))
+        new_player.set_pos(x, y)
 
-    def add_object(self, new_object : RPGObject):
+    def add_object(self, new_object: RPGObject):
 
         if new_object.layer not in self.layers.keys():
             self.layers[new_object.layer] = []
@@ -228,29 +227,28 @@ class Floor:
         if new_object.name in Objects.DIRECTIONS:
             self.exits[Floor.OBJECT_TO_DIRECTION[new_object.name]] = new_object
 
-        logging.info("Added {0} at location ({1},{2})".format(new_object.name,new_object.rect.x,new_object.rect.y))
+        logging.info("Added {0} at location ({1},{2})".format(new_object.name, new_object.rect.x, new_object.rect.y))
 
-    def remove_object(self, object : RPGObject):
-        objects  = self.layers[object.layer]
+    def remove_object(self, object: RPGObject):
+        objects = self.layers[object.layer]
         objects.remove(object)
 
-    def swap_object(self, object : RPGObject, new_object_type : str):
+    def swap_object(self, object: RPGObject, new_object_type: str):
 
-        objects  = self.layers[object.layer]
+        objects = self.layers[object.layer]
 
-        x,y = object.get_pos()
+        x, y = object.get_pos()
 
         swap_object = FloorObjectLoader.get_object_copy_by_name(new_object_type)
-        swap_object.set_pos(x,y)
+        swap_object.set_pos(x, y)
         objects.remove(object)
         objects.append(swap_object)
 
-    def add_monster(self, new_object : Monster):
+    def add_monster(self, new_object: Monster):
 
         self.monsters.append(new_object)
 
-
-    def is_player_collide(self, target : RPGObject):
+    def is_player_collide(self, target: RPGObject):
 
         collide = False
 
@@ -261,11 +259,11 @@ class Floor:
 
         return collide
 
-    def colliding_objects(self, target : RPGObject):
+    def colliding_objects(self, target: RPGObject):
 
         objects = self.layers[target.layer]
 
-        #print("colliding check {0} objects".format(len(objects)))
+        # print("colliding check {0} objects".format(len(objects)))
 
         colliding = []
 
@@ -275,11 +273,11 @@ class Floor:
 
         return colliding
 
-    def touching_objects(self, target : RPGObject):
+    def touching_objects(self, target: RPGObject):
 
         objects = self.layers[target.layer]
 
-        #print("touching check {0} objects".format(len(objects)))
+        # print("touching check {0} objects".format(len(objects)))
 
         touching = []
 
@@ -289,48 +287,50 @@ class Floor:
 
         return touching
 
-    def move_player(self, name : str, dx : int = 0, dy : int = 0):
+    def move_player(self, name: str, dx: int = 0, dy: int = 0):
 
         if name not in self.players.keys():
             raise Exception("{0}:move_player() - Player {1} is not on floor (2).".format(__class__, name, self.name))
 
         selected_player = self.players[name]
 
-        selected_player.move(dx,0)
+        selected_player.move(dx, 0)
 
-        #print("floor:{1}, player:{0}, out={2}".format(selected_player.rect, self.rect, self.rect.contains(selected_player.rect)))
+        # print("floor:{1}, player:{0}, out={2}".format(selected_player.rect, self.rect, self.rect.contains(selected_player.rect)))
 
         objects = self.layers[selected_player.layer]
 
         if self.rect.contains(selected_player.rect) == False:
-            #print("out of bounds")
+            # print("out of bounds")
             selected_player.back()
         else:
 
             for object in objects:
 
                 if object.is_colliding(selected_player):
-                    logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
+                    logging.info(
+                        "{0}:Player {1} has hit object {2}".format(__class__, selected_player.name, object.name))
                     if object.is_solid is True:
                         selected_player.back()
                         break
 
-        selected_player.move(0,dy)
+        selected_player.move(0, dy)
 
         if self.rect.contains(selected_player.rect) == False:
-            #print("out of bounds")
+            # print("out of bounds")
             selected_player.back()
 
         else:
             for object in objects:
                 if object.is_colliding(selected_player):
-                    logging.info("{0}:Player {1} has hit object {2}".format(__class__,selected_player.name, object.name))
+                    logging.info(
+                        "{0}:Player {1} has hit object {2}".format(__class__, selected_player.name, object.name))
                     if object.is_solid is True:
                         selected_player.back()
                         break
 
-class Game:
 
+class Game:
     LOADED = "LOADED"
     READY = "READY"
     PLAYING = "PLAYING"
@@ -347,7 +347,7 @@ class Game:
 
     DATA_FILES_DIR = os.path.dirname(__file__) + "\\data\\"
 
-    def __init__(self, name : str):
+    def __init__(self, name: str):
 
         self.name = name
         self.player = None
@@ -356,7 +356,6 @@ class Game:
         self.floor_factory = None
         self.current_player = None
         self.maps = None
-
 
     def initialise(self):
 
@@ -378,7 +377,6 @@ class Game:
         self.current_map = self.maps.get_map(1)
         self.current_map.print()
 
-
     @property
     def state(self):
 
@@ -392,30 +390,39 @@ class Game:
         self.tick_count += 1
         self.check_collision()
 
-    def create_player(self, new_player_name : str):
+    def create_player(self, new_player_name: str):
 
         new_object = FloorObjectLoader.get_object_copy_by_name(Objects.PLAYER)
 
-        new_player = Player(name=new_player_name, rect=(0,0,new_object.rect.width, new_object.rect.height), height=32)
+        new_player = Player(name=new_player_name, rect=(0, 0, new_object.rect.width, new_object.rect.height), height=32)
 
         return new_player
 
-
-    def add_player(self, new_player : Player):
+    def add_player(self, new_player: Player):
         self.current_player = new_player
         self.current_floor.add_player(new_player)
 
-    def move_player(self, dx : int, dy : int):
+    def move_player(self, dx: int, dy: int):
 
         dt1 = datetime.now()
 
+        self.current_floor.move_player(self.current_player.name, dx, dy)
 
-        self.current_floor.move_player(self.current_player.name, dx,dy)
+        # colliding_objects = self.current_floor.colliding_objects(self.current_player)
 
-        colliding_objects = self.current_floor.colliding_objects(self.current_player)
+        # for object in colliding_objects:
+        #     print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+        #     if object.name in Floor.OBJECT_TO_DIRECTION.keys():
+        #         direction = Floor.OBJECT_TO_DIRECTION[object.name]
+        #         try:
+        #             self.check_exit(direction)
+        #         except Exception as e:
+        #             print(str(e))
 
-        for object in colliding_objects:
-            print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+        touching_objects = self.current_floor.touching_objects(self.current_player)
+
+        for object in touching_objects:
+            # print("{0} is touching {1}".format(self.current_player.name, object.name))
             if object.name in Floor.OBJECT_TO_DIRECTION.keys():
                 direction = Floor.OBJECT_TO_DIRECTION[object.name]
                 try:
@@ -423,12 +430,7 @@ class Game:
                 except Exception as e:
                     print(str(e))
 
-        touching_objects = self.current_floor.touching_objects(self.current_player)
-
-        for object in touching_objects:
-            print("{0} is touching {1}".format(self.current_player.name, object.name))
-
-            if object.name == Objects.TREASURE:
+            elif object.name == Objects.TREASURE:
                 self.current_player.treasure += 1
                 self.current_floor.remove_object(object)
                 print("You found some treasure!")
@@ -446,6 +448,11 @@ class Game:
                 self.current_floor.remove_object(object)
                 print("You found a key!")
 
+            elif object.name == Objects.BOSS_KEY:
+                self.current_player.boss_keys += 1
+                self.current_floor.remove_object(object)
+                print("You found a boss key!")
+
             elif object.name in Objects.DOORS:
                 print("You found a door!")
                 if self.current_player.keys > 0:
@@ -455,10 +462,8 @@ class Game:
                 else:
                     print("The door is locked!")
 
-
-
         dt2 = datetime.now()
-        #print("move={0}".format(dt2.microsecond - dt1.microsecond))
+        # print("move={0}".format(dt2.microsecond - dt1.microsecond))
 
     def check_exit(self, direction):
 
@@ -485,44 +490,41 @@ class Game:
             # If all good move to the new location
             print("You go %s %s..." % (direction.title(), link.description))
 
-            #self.add_status_message("You go {0} {1}...".format(direction.title(), link.description))
+            # self.add_status_message("You go {0} {1}...".format(direction.title(), link.description))
 
             self.current_floor_id = link.to_id
             self.current_floor.add_player(self.current_player, Floor.REVERSE_DIRECTION[direction])
 
         else:
-            raise(Exception("You can't go {0} from here!".format(direction)))
-
+            raise (Exception("You can't go {0} from here!".format(direction)))
 
     def check_collision(self):
 
         colliding_objects = self.current_floor.colliding_objects(self.current_player)
 
         for object in colliding_objects:
-            #print("{0} is colliding with {1}".format(self.current_player.name, object.name))
+            # print("{0} is colliding with {1}".format(self.current_player.name, object.name))
             if object.name == Objects.TRAP and self.tick_count % Game.DOT_DAMAGE_RATE == 0:
                 self.current_player.HP -= 1
                 print("You stepped on a trap!")
 
 
-
-
 class FloorBuilder():
-
     FLOOR_LAYOUT_FILE_NAME = "_floor_layouts.csv"
     FLOOR_OBJECT_FILE_NAME = "_floor_objects.csv"
 
-
-    def __init__(self, data_file_directory : str):
+    def __init__(self, data_file_directory: str):
         self.data_file_directory = data_file_directory
         self.floors = {}
 
-    def initialise(self, file_prefix : str = "default"):
+    def initialise(self, file_prefix: str = "default"):
 
-        self.floor_objects = FloorObjectLoader(self.data_file_directory + file_prefix + FloorBuilder.FLOOR_OBJECT_FILE_NAME)
+        self.floor_objects = FloorObjectLoader(
+            self.data_file_directory + file_prefix + FloorBuilder.FLOOR_OBJECT_FILE_NAME)
         self.floor_objects.load()
 
-        self.floor_layouts = FloorLayoutLoader(self.data_file_directory + file_prefix + FloorBuilder.FLOOR_LAYOUT_FILE_NAME)
+        self.floor_layouts = FloorLayoutLoader(
+            self.data_file_directory + file_prefix + FloorBuilder.FLOOR_LAYOUT_FILE_NAME)
         self.floor_layouts.load()
 
     def load_floors(self):
@@ -535,7 +537,6 @@ class FloorBuilder():
 
 
 class FloorLayoutLoader():
-
     floor_layouts = {}
 
     DEFAULT_OBJECT_WIDTH = 32
@@ -567,23 +568,21 @@ class FloorLayoutLoader():
                 floor_layout_name = row.get("Name")
                 floor_skin_name = row.get("Skin")
 
-
                 if floor_id != current_floor_id:
-
-                    FloorLayoutLoader.floor_layouts[floor_id] = Floor(floor_id, floor_layout_name,(0,0,0,0), skin_name=floor_skin_name)
+                    FloorLayoutLoader.floor_layouts[floor_id] = Floor(floor_id, floor_layout_name, (0, 0, 0, 0),
+                                                                      skin_name=floor_skin_name)
                     current_floor_id = floor_id
-                    y=0
+                    y = 0
 
                 floor = FloorLayoutLoader.floor_layouts[floor_id]
 
                 floor_layer = int(row.get("Layer"))
                 if floor_layer != current_floor_layer:
                     current_floor_layer = floor_layer
-                    y=0
-
+                    y = 0
 
                 floor_layout = row.get("Layout")
-                x=0
+                x = 0
                 for object_code in floor_layout:
                     if object_code != FloorLayoutLoader.EMPTY_OBJECT_CODE:
                         new_floor_object = FloorObjectLoader.get_object_copy_by_code(object_code)
@@ -591,27 +590,24 @@ class FloorLayoutLoader():
                         new_floor_object.rect.y = y
                         new_floor_object.layer = floor_layer
                         floor.add_object(new_floor_object)
-                    x+=FloorLayoutLoader.DEFAULT_OBJECT_WIDTH
+                    x += FloorLayoutLoader.DEFAULT_OBJECT_WIDTH
 
-                y+=FloorLayoutLoader.DEFAULT_OBJECT_DEPTH
+                y += FloorLayoutLoader.DEFAULT_OBJECT_DEPTH
 
 
 class FloorObjectLoader():
-
-
     floor_objects = {}
     map_object_name_to_code = {}
 
-    BOOL_MAP = { "TRUE" : True, "FALSE" : False}
+    BOOL_MAP = {"TRUE": True, "FALSE": False}
 
-    def __init__(self, file_name : str):
+    def __init__(self, file_name: str):
         self.file_name = file_name
 
     def load(self):
 
         # Attempt to open the file
         with open(self.file_name, 'r') as object_file:
-
             # Load all rows in as a dictionary
             reader = csv.DictReader(object_file)
 
@@ -620,19 +616,17 @@ class FloorObjectLoader():
 
             # For each row in the file....
             for row in reader:
-
                 print("loading {0}".format(row))
 
                 object_code = row.get("Code")
 
-                new_object = RPGObject( row.get("Name"), \
-                                        rect = (0,0,int(row.get("width")),int(row.get("depth"))), \
-                                        height = int(row.get("height")), \
-                                        solid = FloorObjectLoader.BOOL_MAP[row.get("solid").upper()], \
-                                        visible = FloorObjectLoader.BOOL_MAP[row.get("visible").upper()], \
-                                        interactable=FloorObjectLoader.BOOL_MAP[row.get("interactable").upper()] \
-                                        )
-
+                new_object = RPGObject(row.get("Name"), \
+                                       rect=(0, 0, int(row.get("width")), int(row.get("depth"))), \
+                                       height=int(row.get("height")), \
+                                       solid=FloorObjectLoader.BOOL_MAP[row.get("solid").upper()], \
+                                       visible=FloorObjectLoader.BOOL_MAP[row.get("visible").upper()], \
+                                       interactable=FloorObjectLoader.BOOL_MAP[row.get("interactable").upper()] \
+                                       )
 
                 # Store the floor object in the code cache
                 FloorObjectLoader.floor_objects[object_code] = new_object
@@ -643,7 +637,7 @@ class FloorObjectLoader():
                 logging.info("{0}.load(): Loaded Floor Object {1}".format(__class__, new_object.name))
 
     @staticmethod
-    def get_object_copy_by_code(object_code : str):
+    def get_object_copy_by_code(object_code: str):
 
         if object_code not in FloorObjectLoader.floor_objects.keys():
             raise Exception("Can't find object by code '{0}'".format(object_code))
@@ -662,5 +656,3 @@ class FloorObjectLoader():
             raise Exception("Can't find object by code '{0}'".format(object_name))
 
         return FloorObjectLoader.get_object_copy_by_code(object_code)
-
-
