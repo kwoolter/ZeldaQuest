@@ -97,9 +97,9 @@ class Controller:
 
         #Finish main game loop
         self.end()
-        pygame.quit()
-        sys.exit()
+
+
 
     def end(self):
-        pass
+        pygame.quit()
 
