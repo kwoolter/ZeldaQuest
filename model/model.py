@@ -308,8 +308,8 @@ class Floor:
             for object in objects:
 
                 if object.is_colliding(selected_player):
-                    logging.info(
-                        "{0}:Player {1} has hit object {2}".format(__class__, selected_player.name, object.name))
+                    # logging.info(
+                    #     "{0}:Player {1} has hit object {2}".format(__class__, selected_player.name, object.name))
                     if object.is_solid is True:
                         selected_player.back()
                         break
@@ -323,8 +323,8 @@ class Floor:
         else:
             for object in objects:
                 if object.is_colliding(selected_player):
-                    logging.info(
-                        "{0}:Player {1} has hit object {2}".format(__class__, selected_player.name, object.name))
+                    # logging.info(
+                    #     "{0}:Player {1} has hit object {2}".format(__class__, selected_player.name, object.name))
                     if object.is_solid is True:
                         selected_player.back()
                         break

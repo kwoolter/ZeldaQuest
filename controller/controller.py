@@ -89,7 +89,7 @@ class Controller:
             if key[pygame.K_DOWN]:
                 self.game.move_player(0, 2)
 
-            FPSCLOCK.tick(100)
+            FPSCLOCK.tick(50)
 
             self.view.draw()
             self.view.update()
