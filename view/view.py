@@ -259,7 +259,7 @@ class MainFrame(View):
 
         super(MainFrame, self).draw()
 
-        self.surface.fill(Colours.RED)
+        self.surface.fill(Colours.DARK_GREY)
 
         pane_rect = self.surface.get_rect()
 
