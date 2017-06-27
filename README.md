@@ -1,2 +1,4 @@
 # ZeldaQuest
-##New RPG Game!!!!
+Zelda Quest :copyright: kwoolter 2017
+## New RPG Game!!!!
+
