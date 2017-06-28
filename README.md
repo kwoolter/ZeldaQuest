@@ -5,11 +5,9 @@ New RPG with *smooooth* movement and next generation graphics!
 
 **WORK IN PROGRESS**
 
-
 ## Requirements
 - Python 3.2 - https://www.python.org/downloads/release/python-326/
 - PyGame for Python 3.2 - http://pygame.org/ftp/pygame-1.9.2a0.win32-py3.2.msi
-
 
 ## Screen shots
 </br>

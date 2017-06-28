@@ -61,22 +61,12 @@ class Controller:
                     loop = False
                 elif event.type == USEREVENT + 1:
                     try:
-                        self.game.tick()
-                        self.view.tick()
-
-                    except Exception as err:
-                        print(str(err))
-                elif event.type == USEREVENT + 1:
-                    try:
                         if self.game.state == model.Game.PLAYING:
                             self.game.tick()
                         self.view.tick()
 
                     except Exception as err:
                         print(str(err))
-
-                elif event.type == KEYDOWN:
-                    pass
 
             # Move the player if an arrow key is pressed
             key = pygame.key.get_pressed()
@@ -94,11 +84,8 @@ class Controller:
             self.view.draw()
             self.view.update()
 
-
         #Finish main game loop
         self.end()
-
-
 
     def end(self):
         pygame.quit()
