@@ -14,7 +14,7 @@ n,door north,64,64,64,True,True,True
 d,open_door,64,64,64,False,True,False
 K,key,16,32,32,True,True,True
 k,boss key,28,32,32,True,True,True
-^,trap,32,32,32,False,True,False
+^,trap,32,32,32,True,True,True
 S,south,128,64,64,False,True,True
 N,north,128,64,64,False,True,True
 E,east, 64, 128, 128,False,True,True

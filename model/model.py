@@ -429,6 +429,11 @@ class Game:
                 self.current_floor.remove_object(object)
                 print("You found a boss key!")
 
+            elif object.name == Objects.TRAP:
+                self.current_player.HP -= 1
+                self.current_floor.remove_object(object)
+                print("You stepped on a trap")
+
             elif object.name in Objects.DOORS:
                 print("You found a door!")
                 if self.current_player.keys > 0:

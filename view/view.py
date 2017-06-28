@@ -208,7 +208,8 @@ class View:
 
 class MainFrame(View):
     TITLE_HEIGHT = 80
-    STATUS_HEIGHT = 50
+    STATUS_HEIGHT = 40
+    PLAYING_AREA_HEIGHT = 32 * 20
 
     INVENTORY = "Inventory"
     PLAYING = "Playing"
@@ -223,13 +224,14 @@ class MainFrame(View):
         self.state = None
         self.game = None
 
-        height = MainFrame.TITLE_HEIGHT + MainFrame.STATUS_HEIGHT + (32 * 20)
+        height = MainFrame.TITLE_HEIGHT + MainFrame.STATUS_HEIGHT + MainFrame.PLAYING_AREA_HEIGHT
         playing_area_height = height - MainFrame.TITLE_HEIGHT - MainFrame.STATUS_HEIGHT
         playing_area_width = width
 
         self.surface = pygame.display.set_mode((width, height), DOUBLEBUF)
 
         self.floor_view = FloorView(playing_area_width, playing_area_height)
+        self.status_view = StatusView(playing_area_width, MainFrame.STATUS_HEIGHT)
 
     def initialise(self, game: model.Game):
 
@@ -254,6 +256,7 @@ class MainFrame(View):
         images.initialise()
 
         self.floor_view.initialise(self.game.current_floor)
+        self.status_view.initialise(self.game)
 
     def draw(self):
 
@@ -270,6 +273,12 @@ class MainFrame(View):
         self.floor_view.draw()
         self.surface.blit(self.floor_view.surface, (x, y))
 
+        y += MainFrame.PLAYING_AREA_HEIGHT
+
+        self.status_view.draw()
+        self.surface.blit(self.status_view.surface, (x, y))
+
+
     def update(self):
         pygame.display.update()
 
@@ -277,6 +286,7 @@ class MainFrame(View):
 
         super(MainFrame, self).tick()
         self.floor_view.tick()
+        self.status_view.tick()
 
 
 class FloorView(View):
@@ -322,11 +332,9 @@ class FloorView(View):
         else:
             view_objects += layer
 
-        count = 0
-
         for view_object in view_objects:
             if view_object.is_visible is True:
-                count += 1
+
                 if isinstance(view_object, model.Player):
 
                     image = View.image_manager.get_skin_image(model.Objects.PLAYER,
@@ -354,8 +362,6 @@ class FloorView(View):
                         pygame.draw.rect(surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)
                     else:
                         surface.blit(image, self.model_to_view_rect(view_object))
-
-        # print("blitted {0} objects".format(count))
 
         return surface
 
@@ -405,3 +411,66 @@ class FloorView(View):
         view_rect.bottom = bottom
 
         return view_rect
+
+class StatusView(View):
+
+    BG_COLOUR = Colours.DARK_GREY
+
+    def __init__(self, width : int, height : int):
+
+        super(StatusView, self).__init__()
+
+        self.width = width
+        self.height = height
+
+        self.surface = pygame.Surface((self.width, self.height))
+        self.game = None
+        self.skin_name = None
+
+    def initialise(self, game: model.Game):
+
+        super(StatusView, self).initialise()
+        self.game = game
+
+    def draw(self):
+        self.surface.fill(StatusView.BG_COLOUR)
+
+        player = self.game.current_player
+
+
+        x=4
+        y=2
+
+        draw_icon(self.surface,x,y,model.Objects.KEY, player.keys)
+
+        x += 32
+
+        draw_icon(self.surface,x,y,model.Objects.BOSS_KEY, player.boss_keys)
+
+        x += 32
+
+        draw_icon(self.surface,x,y,model.Objects.TREASURE, player.treasure)
+
+        x += 32
+
+        draw_icon(self.surface,x,y,model.Objects.PLAYER, player.HP)
+
+
+def draw_icon(surface, x, y, icon_name, count : int = None, tick : int = 0):
+
+    image = View.image_manager.get_skin_image(tile_name=icon_name, skin_name="default", tick=tick)
+    iconpos = image.get_rect()
+    iconpos.left = x
+    iconpos.top = y
+    surface.blit(image, iconpos)
+
+    if count is not None:
+        small_font = pygame.font.Font(None, 20)
+        icon_count = small_font.render("{0:^3}".format(count), 1, Colours.BLACK, Colours.WHITE)
+        count_pos = icon_count.get_rect()
+        count_pos.bottom = iconpos.bottom
+        count_pos.right = iconpos.right
+        surface.blit(icon_count, count_pos)
+
+
+

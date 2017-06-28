@@ -47,16 +47,16 @@ ID,Name,Skin,Layer,Layout
 1,Floor1,default,1,                    
 1,Floor1,default,1,|                 1 
 1,Floor1,default,1,   c            c   
+1,Floor1,default,1,|      ^          1 
+1,Floor1,default,1,             $      
 1,Floor1,default,1,|                 1 
 1,Floor1,default,1,                    
-1,Floor1,default,1,|                 1 
-1,Floor1,default,1,                    
-1,Floor1,default,1,W                 E 
+1,Floor1,default,1,W  $              E 
 1,Floor1,default,1,       K    K       
 1,Floor1,default,1,                    
 1,Floor1,default,1,                    
 1,Floor1,default,1,|                 1 
-1,Floor1,default,1,                    
+1,Floor1,default,1,              ^     
 1,Floor1,default,1,|        k        1 
 1,Floor1,default,1,                    
 1,Floor1,default,1,|  c            c 1 
