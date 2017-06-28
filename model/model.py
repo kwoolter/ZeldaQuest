@@ -2,7 +2,6 @@ import copy
 import csv
 import logging
 import os
-from datetime import datetime
 
 import pygame
 
@@ -55,8 +54,8 @@ class Objects:
 
 
 class RPGObject(object):
-    TOUCH_FIELD_X = 4
-    TOUCH_FIELD_Y = 4
+    TOUCH_FIELD_X = 3
+    TOUCH_FIELD_Y = 3
 
     def __init__(self, name: str,
                  rect: pygame.Rect,
@@ -392,20 +391,9 @@ class Game:
 
     def move_player(self, dx: int, dy: int):
 
-        dt1 = datetime.now()
+        # dt1 = datetime.now()
 
         self.current_floor.move_player(self.current_player.name, dx, dy)
-
-        # colliding_objects = self.current_floor.colliding_objects(self.current_player)
-
-        # for object in colliding_objects:
-        #     print("{0} is colliding with {1}".format(self.current_player.name, object.name))
-        #     if object.name in Floor.OBJECT_TO_DIRECTION.keys():
-        #         direction = Floor.OBJECT_TO_DIRECTION[object.name]
-        #         try:
-        #             self.check_exit(direction)
-        #         except Exception as e:
-        #             print(str(e))
 
         touching_objects = self.current_floor.touching_objects(self.current_player)
 
@@ -450,8 +438,8 @@ class Game:
                 else:
                     print("The door is locked!")
 
-        dt2 = datetime.now()
-        # print("move={0}".format(dt2.microsecond - dt1.microsecond))
+                    # dt2 = datetime.now()
+                    # print("move={0}".format(dt2.microsecond - dt1.microsecond))
 
     def check_exit(self, direction):
 

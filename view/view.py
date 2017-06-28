@@ -1,26 +1,28 @@
-import pygame
-import model
-import os
 import logging
-from datetime import datetime
+import os
+
+import pygame
 from pygame.locals import *
+
+import model
+
 
 class Colours:
     # set up the colours
     BLACK = (0, 0, 0)
-    BROWN = (128,64,0)
+    BROWN = (128, 64, 0)
     WHITE = (255, 255, 255)
     RED = (237, 28, 36)
     GREEN = (34, 177, 76)
     BLUE = (63, 72, 204)
     DARK_GREY = (40, 40, 40)
-    GREY = (128,128,128)
+    GREY = (128, 128, 128)
     GOLD = (255, 201, 14)
     YELLOW = (255, 255, 0)
-    TRANSPARENT = (255,1,1)
+    TRANSPARENT = (255, 1, 1)
+
 
 class ImageManager:
-
     DEFAULT_SKIN = "default"
     RESOURCES_DIR = os.path.dirname(__file__) + "\\resources\\"
 
@@ -35,7 +37,7 @@ class ImageManager:
         if ImageManager.initialised is False:
             self.load_skins()
 
-    def get_image(self, image_file_name : str, width : int = 32, height : int =32):
+    def get_image(self, image_file_name: str, width: int = 32, height: int = 32):
 
         if image_file_name not in ImageManager.image_cache.keys():
 
@@ -57,103 +59,102 @@ class ImageManager:
         new_skin_name = ImageManager.DEFAULT_SKIN
         new_skin = (new_skin_name, {
 
-                                    model.Objects.TREE1: "tree1.png",
-                                    model.Objects.TREE2: "tree2.png",
-                                    model.Objects.GRASS: "grass2.png",
-                                    model.Objects.WALL: "forest_wall.png",
-                                    model.Objects.WALL_CORNER_TL: "brick-walls00.png",
-                                    model.Objects.WALL_CORNER_TR: "brick-walls06.png",
-                                    model.Objects.WALL_CORNER_BL: "brick-walls02.png",
-                                    model.Objects.WALL_CORNER_BR: "brick-walls05.png",
-                                    model.Objects.WALL_TL: "brick-walls01.png",
-                                    model.Objects.WALL_TR: "brick-walls07.png",
-                                    model.Objects.WALL_BL: "brick-walls03.png",
-                                    model.Objects.WALL_BR: "brick-walls04.png",
-                                    model.Objects.WALL_TOP_HORIZONTAL: "brick-walls08.png",
-                                    model.Objects.WALL_BOTTOM_HORIZONTAL: "brick-walls10.png",
-                                    model.Objects.WALL_LEFT_VERTICAL: "brick-walls11.png",
-                                    model.Objects.WALL_RIGHT_VERTICAL: "brick-walls12.png",
-                                    model.Objects.WALL_TOP: "brick-walls13.png",
-                                    model.Objects.WALL_BLOCK: "brick-walls-block.png",
-                                    model.Objects.CRATE: "forest_crate.png",
-                                    model.Objects.BUSH: "forest_bush.png",
-                                    model.Objects.BOSS: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
-                                                       "fallen_knight2.png","fallen_knight1.png","fallen_knight4.png", \
-                                                       "fallen_knight5.png","fallen_knight4.png"
-                                                       ),
-                                    model.Objects.PLAYER: ("player1.png","player.png","player2.png","player.png"),
-                                    model.Objects.TREASURE : "treasure.png",
-                                    model.Objects.TREASURE_CHEST: "treasure_chest2.png",
-                                    model.Objects.DOOR: "door.png",
-                                    model.Objects.DOOR_OPEN: "brick-walls15.png",
-                                    model.Objects.DOOR_NORTH: "door_north.png",
-                                    model.Objects.KEY: "key.png",
-                                    model.Objects.BOSS_KEY: "boss_key.png",
-                                    model.Objects.TILE1: "tile1.png",
-                                    model.Objects.TILE2: "tile2.png",
-                                    model.Objects.NORTH: "north2.png",
-                                    model.Objects.SOUTH: "south2.png",
-                                    model.Objects.EAST: "east2.png",
-                                    model.Objects.WEST: "west2.png",
-                                    model.Objects.NORTH: "brick-walls-doors-north.png",
-                                    model.Objects.SOUTH: "brick-walls-doors-south.png",
-                                    model.Objects.EAST: "brick-walls-doors-east.png",
-                                    model.Objects.WEST: "brick-walls-doors-west.png",
-                                    model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
-                                                        "spike2.png","spike1.png","spike0.png"),
+            model.Objects.TREE1: "tree1.png",
+            model.Objects.TREE2: "tree2.png",
+            model.Objects.GRASS: "grass2.png",
+            model.Objects.WALL: "forest_wall.png",
+            model.Objects.WALL_CORNER_TL: "brick-walls00.png",
+            model.Objects.WALL_CORNER_TR: "brick-walls06.png",
+            model.Objects.WALL_CORNER_BL: "brick-walls02.png",
+            model.Objects.WALL_CORNER_BR: "brick-walls05.png",
+            model.Objects.WALL_TL: "brick-walls01.png",
+            model.Objects.WALL_TR: "brick-walls07.png",
+            model.Objects.WALL_BL: "brick-walls03.png",
+            model.Objects.WALL_BR: "brick-walls04.png",
+            model.Objects.WALL_TOP_HORIZONTAL: "brick-walls08.png",
+            model.Objects.WALL_BOTTOM_HORIZONTAL: "brick-walls10.png",
+            model.Objects.WALL_LEFT_VERTICAL: "brick-walls11.png",
+            model.Objects.WALL_RIGHT_VERTICAL: "brick-walls12.png",
+            model.Objects.WALL_TOP: "brick-walls13.png",
+            model.Objects.WALL_BLOCK: "brick-walls-block.png",
+            model.Objects.CRATE: "forest_crate.png",
+            model.Objects.BUSH: "forest_bush.png",
+            model.Objects.BOSS: ("fallen_knight1.png", "fallen_knight2.png", "fallen_knight3.png", \
+                                 "fallen_knight2.png", "fallen_knight1.png", "fallen_knight4.png", \
+                                 "fallen_knight5.png", "fallen_knight4.png"
+                                 ),
+            model.Objects.PLAYER: ("player1.png", "player.png", "player2.png", "player.png"),
+            model.Objects.TREASURE: "treasure.png",
+            model.Objects.TREASURE_CHEST: "treasure_chest2.png",
+            model.Objects.DOOR: "door.png",
+            model.Objects.DOOR_OPEN: "brick-walls15.png",
+            model.Objects.DOOR_NORTH: "door_north.png",
+            model.Objects.KEY: "key.png",
+            model.Objects.BOSS_KEY: "boss_key.png",
+            model.Objects.TILE1: "tile1.png",
+            model.Objects.TILE2: "tile2.png",
+            model.Objects.NORTH: "north2.png",
+            model.Objects.SOUTH: "south2.png",
+            model.Objects.EAST: "east2.png",
+            model.Objects.WEST: "west2.png",
+            model.Objects.NORTH: "brick-walls-doors-north.png",
+            model.Objects.SOUTH: "brick-walls-doors-south.png",
+            model.Objects.EAST: "brick-walls-doors-east.png",
+            model.Objects.WEST: "brick-walls-doors-west.png",
+            model.Objects.TRAP: ("empty.png", "spike0.png", "spike1.png", "spike2.png", "spike3.png",
+                                 "spike2.png", "spike1.png", "spike0.png"),
 
         })
 
         ImageManager.skins[new_skin_name] = new_skin
-
 
         new_skin_name = "forest"
         new_skin = (new_skin_name, {
 
-                                    model.Objects.TREE1: "forest_tree.png",
-                                    model.Objects.WALL: "forest_wall.png",
-                                    model.Objects.WALL_CORNER_TL: "walls-topped00.png",
-                                    model.Objects.WALL_CORNER_TR: "walls-topped06.png",
-                                    model.Objects.WALL_CORNER_BL: "walls-topped02.png",
-                                    model.Objects.WALL_CORNER_BR: "walls-topped05.png",
-                                    model.Objects.WALL_TL: "walls-topped01.png",
-                                    model.Objects.WALL_TR: "walls-topped07.png",
-                                    model.Objects.WALL_BL: "walls-topped03.png",
-                                    model.Objects.WALL_BR: "walls-topped04.png",
-                                    model.Objects.WALL_TOP_HORIZONTAL: "walls-topped08.png",
-                                    model.Objects.WALL_BOTTOM_HORIZONTAL: "walls-topped10.png",
-                                    model.Objects.WALL_LEFT_VERTICAL: "walls-topped11.png",
-                                    model.Objects.WALL_RIGHT_VERTICAL: "walls-topped12.png",
-                                    model.Objects.WALL_TOP: "walls-topped13.png",
-                                    model.Objects.WALL_BLOCK: "walls-topped14.png",
-                                    model.Objects.CRATE: "forest_crate.png",
-                                    model.Objects.BUSH: "forest_bush.png",
-                                    model.Objects.BOSS: ("fallen_knight1.png","fallen_knight2.png","fallen_knight3.png", \
-                                                       "fallen_knight2.png","fallen_knight1.png","fallen_knight4.png", \
-                                                       "fallen_knight5.png","fallen_knight4.png"
-                                                       ),
-                                    model.Objects.PLAYER: ("player1.png","player.png","player2.png","player.png"),
-                                    model.Objects.TREASURE : "treasure.png",
-                                    model.Objects.DOOR: "door.png",
-                                    model.Objects.DOOR_OPEN: "door_open.png",
-                                    model.Objects.KEY: "key.png",
-                                    model.Objects.TILE1: "tile0.png",
-                                    model.Objects.NORTH: "north2.png",
-                                    model.Objects.SOUTH: "south2.png",
-                                    model.Objects.EAST: "east2.png",
-                                    model.Objects.WEST: "west2.png",
-                                    model.Objects.NORTH: "walls-topped15.png",
-                                    model.Objects.SOUTH: "walls-topped16.png",
-                                    model.Objects.EAST: "walls-topped17.png",
-                                    model.Objects.WEST: "walls-topped18.png",
-                                    model.Objects.TRAP: ("empty.png","spike0.png","spike1.png","spike2.png","spike3.png",
-                                                        "spike2.png","spike1.png","spike0.png"),
+            model.Objects.TREE1: "forest_tree.png",
+            model.Objects.WALL: "forest_wall.png",
+            model.Objects.WALL_CORNER_TL: "walls-topped00.png",
+            model.Objects.WALL_CORNER_TR: "walls-topped06.png",
+            model.Objects.WALL_CORNER_BL: "walls-topped02.png",
+            model.Objects.WALL_CORNER_BR: "walls-topped05.png",
+            model.Objects.WALL_TL: "walls-topped01.png",
+            model.Objects.WALL_TR: "walls-topped07.png",
+            model.Objects.WALL_BL: "walls-topped03.png",
+            model.Objects.WALL_BR: "walls-topped04.png",
+            model.Objects.WALL_TOP_HORIZONTAL: "walls-topped08.png",
+            model.Objects.WALL_BOTTOM_HORIZONTAL: "walls-topped10.png",
+            model.Objects.WALL_LEFT_VERTICAL: "walls-topped11.png",
+            model.Objects.WALL_RIGHT_VERTICAL: "walls-topped12.png",
+            model.Objects.WALL_TOP: "walls-topped13.png",
+            model.Objects.WALL_BLOCK: "walls-topped14.png",
+            model.Objects.CRATE: "forest_crate.png",
+            model.Objects.BUSH: "forest_bush.png",
+            model.Objects.BOSS: ("fallen_knight1.png", "fallen_knight2.png", "fallen_knight3.png", \
+                                 "fallen_knight2.png", "fallen_knight1.png", "fallen_knight4.png", \
+                                 "fallen_knight5.png", "fallen_knight4.png"
+                                 ),
+            model.Objects.PLAYER: ("player1.png", "player.png", "player2.png", "player.png"),
+            model.Objects.TREASURE: "treasure.png",
+            model.Objects.DOOR: "door.png",
+            model.Objects.DOOR_OPEN: "door_open.png",
+            model.Objects.KEY: "key.png",
+            model.Objects.TILE1: "tile0.png",
+            model.Objects.NORTH: "north2.png",
+            model.Objects.SOUTH: "south2.png",
+            model.Objects.EAST: "east2.png",
+            model.Objects.WEST: "west2.png",
+            model.Objects.NORTH: "walls-topped15.png",
+            model.Objects.SOUTH: "walls-topped16.png",
+            model.Objects.EAST: "walls-topped17.png",
+            model.Objects.WEST: "walls-topped18.png",
+            model.Objects.TRAP: ("empty.png", "spike0.png", "spike1.png", "spike2.png", "spike3.png",
+                                 "spike2.png", "spike1.png", "spike0.png"),
 
         })
 
         ImageManager.skins[new_skin_name] = new_skin
 
-    def get_skin_image(self, tile_name: str, skin_name: str = DEFAULT_SKIN, tick=0, width : int = 32, height : int =32):
+    def get_skin_image(self, tile_name: str, skin_name: str = DEFAULT_SKIN, tick=0, width: int = 32, height: int = 32):
 
         if skin_name not in ImageManager.skins.keys():
             raise Exception("Can't find specified skin {0}".format(skin_name))
@@ -180,12 +181,12 @@ class ImageManager:
             image = self.get_image(image_file_name=tile_file_name, width=width, height=height)
 
         else:
-            image = self.get_image(tile_file_names,width=width, height=height)
+            image = self.get_image(tile_file_names, width=width, height=height)
 
         return image
 
-class View:
 
+class View:
     image_manager = ImageManager()
 
     def __init__(self):
@@ -206,7 +207,6 @@ class View:
 
 
 class MainFrame(View):
-
     TITLE_HEIGHT = 80
     STATUS_HEIGHT = 50
 
@@ -223,11 +223,11 @@ class MainFrame(View):
         self.state = None
         self.game = None
 
-        height = MainFrame.TITLE_HEIGHT + MainFrame.STATUS_HEIGHT + (32*20)
+        height = MainFrame.TITLE_HEIGHT + MainFrame.STATUS_HEIGHT + (32 * 20)
         playing_area_height = height - MainFrame.TITLE_HEIGHT - MainFrame.STATUS_HEIGHT
         playing_area_width = width
 
-        self.surface = pygame.display.set_mode((width, height),DOUBLEBUF )
+        self.surface = pygame.display.set_mode((width, height), DOUBLEBUF)
 
         self.floor_view = FloorView(playing_area_width, playing_area_height)
 
@@ -263,14 +263,12 @@ class MainFrame(View):
 
         pane_rect = self.surface.get_rect()
 
-        x=0
-        y=pane_rect.y + MainFrame.TITLE_HEIGHT
+        x = 0
+        y = pane_rect.y + MainFrame.TITLE_HEIGHT
 
         self.floor_view.initialise(self.game.current_floor)
         self.floor_view.draw()
         self.surface.blit(self.floor_view.surface, (x, y))
-
-
 
     def update(self):
         pygame.display.update()
@@ -282,13 +280,12 @@ class MainFrame(View):
 
 
 class FloorView(View):
-
     BG_COLOUR = Colours.DARK_GREY
     TRANSPARENT = Colours.TRANSPARENT
     TILE_WIDTH = 32
     TILE_HEIGHT = 32
 
-    def __init__(self, width : int, height : int, tile_width : int = TILE_WIDTH, tile_height : int = TILE_HEIGHT):
+    def __init__(self, width: int, height: int, tile_width: int = TILE_WIDTH, tile_height: int = TILE_HEIGHT):
 
         super(FloorView, self).__init__()
 
@@ -312,7 +309,7 @@ class FloorView(View):
 
         skin_name = self.floor.skin_name
 
-        #print("drawing layer for floor {0}".format(layer_id))
+        # print("drawing layer for floor {0}".format(layer_id))
 
         surface.fill(FloorView.TRANSPARENT)
 
@@ -325,22 +322,22 @@ class FloorView(View):
         else:
             view_objects += layer
 
-        count=0
+        count = 0
 
         for view_object in view_objects:
             if view_object.is_visible is True:
-                count+=1
+                count += 1
                 if isinstance(view_object, model.Player):
 
                     image = View.image_manager.get_skin_image(model.Objects.PLAYER,
                                                               tick=self.tick_count,
                                                               width=view_object.rect.width,
-                                                              height = view_object.height)
+                                                              height=view_object.height)
                     if image is None:
                         pygame.draw.rect(surface, Colours.WHITE, self.model_to_view_rect(view_object))
                         pygame.draw.rect(surface, Colours.RED, self.model_to_view_rect(view_object), 1)
                     else:
-                        surface.blit(image,self.model_to_view_rect(view_object))
+                        surface.blit(image, self.model_to_view_rect(view_object))
 
                 elif isinstance(view_object, model.Monster):
                     pygame.draw.rect(surface, Colours.RED, self.model_to_view_rect(view_object))
@@ -350,19 +347,19 @@ class FloorView(View):
                     image = View.image_manager.get_skin_image(view_object.name,
                                                               tick=self.tick_count,
                                                               width=view_object.rect.width,
-                                                              height = view_object.height,
+                                                              height=view_object.height,
                                                               skin_name=skin_name)
                     if image is None:
                         pygame.draw.rect(surface, Colours.GREEN, self.model_to_view_rect(view_object))
                         pygame.draw.rect(surface, Colours.GOLD, self.model_to_view_rect(view_object), 1)
                     else:
-                        surface.blit(image,self.model_to_view_rect(view_object))
+                        surface.blit(image, self.model_to_view_rect(view_object))
 
-        #print("blitted {0} objects".format(count))
+        # print("blitted {0} objects".format(count))
 
         return surface
 
-    def initialise(self, floor : model.Floor):
+    def initialise(self, floor: model.Floor):
 
         if self.floor is None or floor.name != self.floor.name:
             print("Changing floor from to {0}".format(floor.name))
@@ -375,7 +372,7 @@ class FloorView(View):
 
     def draw(self):
 
-        #dt1 = datetime.now()
+        # dt1 = datetime.now()
 
         self.surface.fill(FloorView.BG_COLOUR)
 
@@ -391,15 +388,14 @@ class FloorView(View):
             if id == 1:
                 surface = self.draw_layer(surface, id)
 
-            #print("blitting surface for layer {0} {1}".format(id, surface.get_rect()))
+            # print("blitting surface for layer {0} {1}".format(id, surface.get_rect()))
 
-            self.surface.blit(surface, (0,0, self.width, self.height))
+            self.surface.blit(surface, (0, 0, self.width, self.height))
 
-        #dt2 = datetime.now()
-        #print("draw={0}".format(dt2.microsecond - dt1.microsecond))
+            # dt2 = datetime.now()
+            # print("draw={0}".format(dt2.microsecond - dt1.microsecond))
 
-
-    def model_to_view_rect(self, model_object : model.RPGObject):
+    def model_to_view_rect(self, model_object: model.RPGObject):
 
         HEIGHT_ANGLE_FACTOR = 1.0
 
